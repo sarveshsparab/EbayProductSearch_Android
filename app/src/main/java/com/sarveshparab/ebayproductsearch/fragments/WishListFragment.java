@@ -13,12 +13,12 @@ import com.sarveshparab.ebayproductsearch.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WIshListFragment.OnFragmentInteractionListener} interface
+ * {@link WishListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WIshListFragment#newInstance} factory method to
+ * Use the {@link WishListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WIshListFragment extends Fragment {
+public class WishListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class WIshListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public WIshListFragment() {
+    public WishListFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class WIshListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WIshListFragment.
+     * @return A new instance of fragment WishListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static WIshListFragment newInstance(String param1, String param2) {
-        WIshListFragment fragment = new WIshListFragment();
+    public static WishListFragment newInstance(String param1, String param2) {
+        WishListFragment fragment = new WishListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
