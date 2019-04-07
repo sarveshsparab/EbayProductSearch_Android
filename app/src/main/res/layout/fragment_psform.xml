@@ -1,14 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PSFormFragment">
+    android:orientation="vertical"
+    tools:context=".fragments.PSFormFragment"
+    android:theme="@style/PsFormTheme">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/psKeywordTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/psFormTopMargin"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginTV"
+        android:text="@string/psKeywordLabel" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/psKeywordET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginOth"
+        android:layout_marginBottom="@dimen/psFormSectionMargin"
+        android:hint="@string/psKeywordPH" />
+
+    <TextView
+        android:id="@+id/psKeywordErrorTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/psFormErrorMargin"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginBottom="@dimen/psFormSectionMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginOth"
+        android:textColor="@color/psErrorMessage"
+        android:text="@string/psErrorMessage" />
+
+    <TextView
+        android:id="@+id/psCategoryTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginTV"
+        android:text="@string/psCategoryLabel" />
+
+    <Spinner
+        android:id="@+id/psCategorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginOth"
+        android:layout_marginBottom="@dimen/psFormSectionMargin"/>
+
+    <TextView
+        android:id="@+id/psConditionTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginTV"
+        android:text="@string/psConditionLabel" />
+
+    <LinearLayout
+        android:id="@+id/psConditionLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginOth"
+        android:layout_marginBottom="@dimen/psFormSectionMargin"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/psNewCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="@string/psCond1CBLabel" />
+
+        <CheckBox
+            android:id="@+id/psUsedCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="@string/psCond2CBLabel" />
+
+        <CheckBox
+            android:id="@+id/psUnspecifiedCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:text="@string/psCond3CBLabel" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/psShippingTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginTV"
+        android:text="@string/psShippingLabel" />
+
+    <LinearLayout
+        android:id="@+id/psShippingLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginOth"
+        android:layout_marginBottom="@dimen/psFormSectionMargin"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/psLocalCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:text="@string/psShip1CBLabel" />
+
+        <CheckBox
+            android:id="@+id/psFreeCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:text="@string/psShip2CBLabel" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/psEnableNearbyLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginStart="@dimen/psFormLeftMarginTV"
+        android:layout_marginBottom="@dimen/psFormSectionMargin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/psEnableNearbyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/psEnableNearbyLabel" />
+
+        <CheckBox
+            android:id="@+id/psEnableNearbyCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/psNearbySearchEnabledRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/psFormRightMargin"
+        android:layout_marginBottom="@dimen/psFormSectionMargin">
+
+        <EditText
+            android:id="@+id/psMilesET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:layout_marginStart="@dimen/psFormLeftMarginOth"
+            android:hint="@string/psMilesPH" />
+
+        <TextView
+            android:id="@+id/psFromTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="@dimen/psFormLeftMarginTV"
+            android:text="@string/psFromLabel" />
+
+        <RadioGroup
+            android:id="@+id/psLocRG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="70dp">
+
+            <RadioButton
+                android:id="@+id/psCurrLocRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/psCurrLocLabel" />
+
+            <RadioButton
+                android:id="@+id/psCustLocRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="90dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/psCustLocET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/psZipcodePH" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/psCustLocErrorTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="133dp"
+            android:layout_marginEnd="@dimen/psFormRightMargin"
+            android:layout_marginBottom="@dimen/psFormSectionMargin"
+            android:layout_marginStart="@dimen/psFormLeftMarginOth"
+            android:textColor="@color/psErrorMessage"
+            android:text="@string/psErrorMessage" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/psFormButtonsLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginStart="@dimen/psFormButtonMargin"
+        android:layout_marginEnd="@dimen/psFormButtonMargin">
+
+        <Button
+            android:id="@+id/psSearchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/psFormSearch"
+            android:layout_marginEnd="@dimen/psFormLeftMarginOth"
+            android:textColor="@color/psButtonText"
+            android:background="@color/psButtons"/>
+
+        <Button
+            android:id="@+id/psClearBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/psFormClear"
+            android:layout_marginStart="@dimen/psFormLeftMarginOth"
+            android:textColor="@color/psButtonText"
+            android:background="@color/psButtons"/>
+    </LinearLayout>
+
+
+</LinearLayout>
