@@ -1,6 +1,38 @@
 <resources>
     <string name="app_name">Product Search</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- PS FORM STRINGS -->
+    <string name="psFormSearch">SEARCH</string>
+    <string name="psFormClear">CLEAR</string>
+    <string name="psZipcodePH">zipcode</string>
+    <string name="psMilesPH">Miles from</string>
+    <string name="psKeywordPH">Enter Keyword</string>
+    <string name="psEnableNearbyLabel">Enable Nearby Search</string>
+    <string name="psShippingLabel">Shipping Options</string>
+    <string name="psConditionLabel">Condition</string>
+    <string name="psCategoryLabel">Category</string>
+    <string name="psKeywordLabel">Keyword</string>
+    <string name="psErrorMessage">Please enter mandatory field</string>
+    <string name="psCurrLocLabel">Current Location</string>
+    <string name="psFromLabel">From</string>
+    <string name="psCond1CBLabel">New</string>
+    <string name="psCond2CBLabel">Used</string>
+    <string name="psCond3CBLabel">Unspecified</string>
+    <string name="psShip1CBLabel">Local Pickup</string>
+    <string name="psShip2CBLabel">Free Shipping</string>
+
+    <string-array name="psCategoryTypes">
+        <item>All</item>
+        <item>Art</item>
+        <item>Baby</item>
+        <item>Books</item>
+        <item>Clothing, Shoes &amp; Accessories</item>
+        <item>Computers, Tablets &amp; Networking</item>
+        <item>Health &amp; Beauty</item>
+        <item>Music</item>
+        <item>Video Games &amp; Consoles</item>
+    </string-array>
+
 </resources>
