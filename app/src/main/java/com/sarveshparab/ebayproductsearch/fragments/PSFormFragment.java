@@ -4,11 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sarveshparab.ebayproductsearch.R;
+import com.sarveshparab.ebayproductsearch.pojos.PSForm;
+import com.sarveshparab.ebayproductsearch.utility.PSFormUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,14 +35,6 @@ import com.sarveshparab.ebayproductsearch.R;
  * create an instance of this fragment.
  */
 public class PSFormFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -34,20 +42,9 @@ public class PSFormFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PSFormFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PSFormFragment newInstance(String param1, String param2) {
+    public static PSFormFragment newInstance() {
         PSFormFragment fragment = new PSFormFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,16 +53,55 @@ public class PSFormFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_psform, container, false);
+
+        // Create a view
+        final View view = inflater.inflate(R.layout.fragment_psform, container, false);
+
+        PSFormUtil.populateCategoryTypes(this.getContext(), view);
+
+        EditText psKeywordET = view.findViewById(R.id.psKeywordET);
+        psKeywordET.addTextChangedListener(PSFormUtil.setPSKeywordETWatcher(view));
+
+        EditText psCustLocET = view.findViewById(R.id.psCustLocET);
+        psCustLocET.addTextChangedListener(PSFormUtil.setPSCustLocETWatcher(view));
+
+        CheckBox psNearbySearchEnableCB = view.findViewById(R.id.psEnableNearbyCB);
+        psNearbySearchEnableCB.setOnCheckedChangeListener(PSFormUtil.setNearbySearchToggler(view));
+
+        RadioGroup psLocRG = view.findViewById(R.id.psLocRG);
+        psLocRG.setOnCheckedChangeListener(PSFormUtil.setNearbyLocationTypeToggler(view));
+
+        Button psClearBtn = view.findViewById(R.id.psClearBtn);
+        psClearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PSFormUtil.clearPSForm(view);
+            }
+        });
+
+        Button psSearchBtn = view.findViewById(R.id.psSearchBtn);
+        psSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(PSFormUtil.isPSFormValid(view)){
+                    PSForm psForm = PSFormUtil.captureFormData(view);
+
+                    Log.d("xxxxxx",psForm.toString());
+                } else{
+                    Toast.makeText(v.getContext(),"Please fix all fields with errors",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
