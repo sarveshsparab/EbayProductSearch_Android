@@ -2,4 +2,12 @@
 <resources>
     <dimen name="landingTitleSize">20sp</dimen>
 
+    <dimen name="psFormTopMargin">10dp</dimen>
+    <dimen name="psFormSectionMargin">8dp</dimen>
+    <dimen name="psFormErrorMargin">-12dp</dimen>
+    <dimen name="psFormRightMargin">50dp</dimen>
+    <dimen name="psFormButtonMargin">25dp</dimen>
+    <dimen name="psFormLeftMarginTV">8dp</dimen>
+    <dimen name="psFormLeftMarginOth">10dp</dimen>
+
 </resources>
