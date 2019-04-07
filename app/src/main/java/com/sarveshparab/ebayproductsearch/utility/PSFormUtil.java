@@ -58,7 +58,8 @@ public class PSFormUtil {
         boolean valid = true;
 
         EditText psKeywordET = view.findViewById(R.id.psKeywordET);
-        if(psKeywordET.getText().equals("") || psKeywordET.getText().length() == 0){
+        if(psKeywordET.getText().equals("") || psKeywordET.getText().length() == 0
+                || psKeywordET.getText().toString().trim().equals("")){
             valid = false;
             TextView psKeywordErrorTV = view.findViewById(R.id.psKeywordErrorTV);
             psKeywordErrorTV.setVisibility(View.VISIBLE);
@@ -71,7 +72,8 @@ public class PSFormUtil {
             if(psCustLocRB.isChecked()) {
 
                 EditText psCustLocET = view.findViewById(R.id.psCustLocET);
-                if (psCustLocET.getText().equals("") || psCustLocET.getText().length() == 0) {
+                if (psCustLocET.getText().equals("") || psCustLocET.getText().length() == 0
+                        || psCustLocET.getText().toString().trim().equals("")) {
                     valid = false;
                     TextView psCustLocErrorTV = view.findViewById(R.id.psCustLocErrorTV);
                     psCustLocErrorTV.setVisibility(View.VISIBLE);
