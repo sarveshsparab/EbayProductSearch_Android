@@ -208,7 +208,7 @@
             android:layout_marginTop="90dp"
             android:orientation="vertical">
 
-            <EditText
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/psCustLocET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
