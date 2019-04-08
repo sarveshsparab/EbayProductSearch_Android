@@ -1,20 +1,27 @@
 package com.sarveshparab.ebayproductsearch.pojos;
 
-public class PSForm {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PSForm implements Parcelable {
 
     private String keyword;
     private String category;
     private String categoryValue;
-    private boolean condNew;
-    private boolean condUsed;
-    private boolean condUnspecified;
-    private boolean localPickup;
-    private boolean freeShipping;
+    private Boolean condNew;
+    private Boolean condUsed;
+    private Boolean condUnspecified;
+    private Boolean localPickup;
+    private Boolean freeShipping;
     private String miles;
-    private boolean isNearBySearchEnabled;
+    private Boolean isNearBySearchEnabled;
     private String currZipCode;
     private String custZipCode;
     private String zipCodeType;
+
+    public PSForm() {
+        // default blank constructor
+    }
 
     public String getKeyword() {
         return keyword;
@@ -176,4 +183,57 @@ public class PSForm {
         }
         return catVal;
     }
+
+
+    // Parcelable constructs
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.keyword);
+        dest.writeString(this.category);
+        dest.writeString(this.categoryValue);
+        dest.writeString(this.condNew.toString());
+        dest.writeString(this.condUsed.toString());
+        dest.writeString(this.condUnspecified.toString());
+        dest.writeString(this.localPickup.toString());
+        dest.writeString(this.freeShipping.toString());
+        dest.writeString(this.miles);
+        dest.writeString(this.isNearBySearchEnabled.toString());
+        dest.writeString(this.currZipCode);
+        dest.writeString(this.custZipCode);
+        dest.writeString(this.zipCodeType);
+    }
+
+    protected PSForm(Parcel in) {
+        this.keyword = in.readString();
+        this.category = in.readString();
+        this.categoryValue = in.readString();
+        this.condNew = Boolean.valueOf(in.readString());
+        this.condUsed = Boolean.valueOf(in.readString());
+        this.condUnspecified = Boolean.valueOf(in.readString());
+        this.localPickup = Boolean.valueOf(in.readString());
+        this.freeShipping = Boolean.valueOf(in.readString());
+        this.miles = in.readString();
+        this.isNearBySearchEnabled = Boolean.valueOf(in.readString());
+        this.currZipCode = in.readString();
+        this.custZipCode = in.readString();
+        this.zipCodeType = in.readString();
+    }
+
+    public static final Parcelable.Creator<PSForm> CREATOR = new Parcelable.Creator<PSForm>() {
+        @Override
+        public PSForm createFromParcel(Parcel source) {
+            return new PSForm(source);
+        }
+
+        @Override
+        public PSForm[] newArray(int size) {
+            return new PSForm[size];
+        }
+    };
 }
