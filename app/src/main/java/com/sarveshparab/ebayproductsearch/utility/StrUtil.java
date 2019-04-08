@@ -20,4 +20,6 @@ public class StrUtil {
 
     public static final String ZIP_ARRAY = "postalCodes";
     public static final String ZIP_ENTRY = "postalCode";
+
+    public static final String PSFORM_PARCEL = "psFormParcel";
 }
