@@ -11,6 +11,11 @@ public class PSSplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         startActivity(new Intent(PSSplashActivity.this, LandingActivity.class));
         finish();
     }
