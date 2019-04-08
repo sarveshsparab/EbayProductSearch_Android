@@ -5,13 +5,18 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,14 +32,21 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.sarveshparab.ebayproductsearch.R;
+import com.sarveshparab.ebayproductsearch.adapters.ZipAutoAdapter;
 import com.sarveshparab.ebayproductsearch.network.CallArbitrator;
+import com.sarveshparab.ebayproductsearch.network.NetworkCall;
 import com.sarveshparab.ebayproductsearch.network.NetworkCallBack;
 import com.sarveshparab.ebayproductsearch.pojos.PSForm;
 import com.sarveshparab.ebayproductsearch.utility.PSFormUtil;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
+import com.sarveshparab.ebayproductsearch.utility.ValUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +60,8 @@ public class PSFormFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private JSONObject currZipCode;
+    private JSONObject currZipCode = NetworkCall.currZipCode;
+    private Handler zipAutoCompleteHandler;
 
     public PSFormFragment() {
         // Required empty public constructor
@@ -65,8 +78,7 @@ public class PSFormFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fetchCurrLocation();
-
+        NetworkCall.fetchCurrLocation(getActivity().getApplicationContext());
     }
 
     @Override
@@ -78,11 +90,54 @@ public class PSFormFragment extends Fragment {
 
         PSFormUtil.populateCategoryTypes(this.getContext(), view);
 
+        // ZipCode Auto-complete logic STARTS ******************************************************
+
+        final AppCompatAutoCompleteTextView zipAutoCompleteTV = view.findViewById(R.id.psCustLocET);
+        final ZipAutoAdapter zipAutoAdapter = new ZipAutoAdapter(getContext(),
+                android.R.layout.simple_dropdown_item_1line);
+        zipAutoCompleteTV.setThreshold(ValUtil.ZIP_THRESHOLD);
+        zipAutoCompleteTV.setAdapter(zipAutoAdapter);
+
+        zipAutoCompleteTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        zipAutoCompleteTV.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                zipAutoCompleteHandler.removeMessages(ValUtil.INITIATE_ZIP_AUTOCOMPLETE);
+                zipAutoCompleteHandler.sendEmptyMessageDelayed(ValUtil.INITIATE_ZIP_AUTOCOMPLETE,
+                        ValUtil.ZIP_AUTOCOMPLETE_DELAY);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        zipAutoCompleteHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                if (msg.what == ValUtil.INITIATE_ZIP_AUTOCOMPLETE) {
+                    if (!TextUtils.isEmpty(zipAutoCompleteTV.getText())) {
+                        NetworkCall.fetchAutoCompleteZip(zipAutoCompleteTV.getText().toString(),
+                                zipAutoAdapter, getActivity().getApplicationContext());
+                    }
+                }
+                return false;
+            }
+        });
+
+        // ZipCode Auto-complete logic ENDS ********************************************************
+
         EditText psKeywordET = view.findViewById(R.id.psKeywordET);
         psKeywordET.addTextChangedListener(PSFormUtil.setPSKeywordETWatcher(view));
 
-        EditText psCustLocET = view.findViewById(R.id.psCustLocET);
-        psCustLocET.addTextChangedListener(PSFormUtil.setPSCustLocETWatcher(view));
+//        EditText psCustLocET = view.findViewById(R.id.psCustLocET);
+//        psCustLocET.addTextChangedListener(PSFormUtil.setPSCustLocETWatcher(view));
 
         CheckBox psNearbySearchEnableCB = view.findViewById(R.id.psEnableNearbyCB);
         psNearbySearchEnableCB.setOnCheckedChangeListener(PSFormUtil.setNearbySearchToggler(view));
@@ -162,27 +217,4 @@ public class PSFormFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void fetchCurrLocation() {
-
-        CallArbitrator.makeRequest(StrUtil.IP_API_URL, new NetworkCallBack() {
-            @Override
-            public void onSuccess(JSONObject result) throws JSONException {
-                JSONObject jsonObject = new JSONObject()
-                        .put(StrUtil.JSON_RESPONSE_STATUS_KEY, StrUtil.JSON_SUCCESS_RESPONSE)
-                        .put(StrUtil.JSON_RESPONSE_MESSAGE_KEY, result.getString(StrUtil.IP_API_ZIP_KEY));
-
-                currZipCode = jsonObject;
-            }
-
-            @Override
-            public void onError(String result) throws Exception {
-                Log.v(StrUtil.LOG_TAG+"|IP-API_Error", "Call failed with error : "+result);
-                JSONObject jsonObject = new JSONObject()
-                        .put(StrUtil.JSON_RESPONSE_STATUS_KEY, StrUtil.JSON_ERROR_RESPONSE)
-                        .put(StrUtil.JSON_RESPONSE_MESSAGE_KEY, "IP-API call failed");
-
-                currZipCode = jsonObject;
-            }
-        }, getActivity().getApplicationContext(), null);
-    }
 }
