@@ -1,6 +1,7 @@
 package com.sarveshparab.ebayproductsearch.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.sarveshparab.ebayproductsearch.R;
+import com.sarveshparab.ebayproductsearch.activities.SearchResultsActivity;
 import com.sarveshparab.ebayproductsearch.adapters.ZipAutoAdapter;
 import com.sarveshparab.ebayproductsearch.network.CallArbitrator;
 import com.sarveshparab.ebayproductsearch.network.NetworkCall;
@@ -60,7 +62,7 @@ public class PSFormFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private JSONObject currZipCode = NetworkCall.currZipCode;
+    private JSONObject currZipCode;
     private Handler zipAutoCompleteHandler;
 
     public PSFormFragment() {
@@ -78,7 +80,7 @@ public class PSFormFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        NetworkCall.fetchCurrLocation(getActivity().getApplicationContext());
+        fetchCurrLocation(getActivity().getApplicationContext());
     }
 
     @Override
@@ -161,12 +163,18 @@ public class PSFormFragment extends Fragment {
                     PSForm psForm = PSFormUtil.captureFormData(view);
 
                     try {
-                        psForm.setCurrZipCode(currZipCode.getString(StrUtil.JSON_RESPONSE_MESSAGE_KEY));
+                        psForm.setCurrZipCode(currZipCode==null ? "" :
+                                currZipCode.getString(StrUtil.JSON_RESPONSE_MESSAGE_KEY));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                    Log.d(StrUtil.LOG_TAG+"|PSForm",psForm.toString());
+                    Log.v(StrUtil.LOG_TAG+"|PSForm",psForm.toString());
+                    Log.v(StrUtil.LOG_TAG+"|Forward","To SearchResults Activity");
+
+                    Intent searchResultsActivity = new Intent(getActivity(), SearchResultsActivity.class);
+                    searchResultsActivity.putExtra(StrUtil.PSFORM_PARCEL, psForm);
+                    startActivity(searchResultsActivity);
                 } else{
                     Toast.makeText(v.getContext(),"Please fix all fields with errors",
                             Toast.LENGTH_SHORT).show();
@@ -215,6 +223,29 @@ public class PSFormFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void fetchCurrLocation(Context actCtx) {
+        CallArbitrator.makeRequest(StrUtil.IP_API_URL, new NetworkCallBack() {
+            @Override
+            public void onSuccess(JSONObject result) throws JSONException {
+                JSONObject jsonObject = new JSONObject()
+                        .put(StrUtil.JSON_RESPONSE_STATUS_KEY, StrUtil.JSON_SUCCESS_RESPONSE)
+                        .put(StrUtil.JSON_RESPONSE_MESSAGE_KEY, result.getString(StrUtil.IP_API_ZIP_KEY));
+
+                currZipCode = jsonObject;
+            }
+
+            @Override
+            public void onError(String result) throws Exception {
+                Log.v(StrUtil.LOG_TAG+"|IP-API_Error", "Call failed with error : "+result);
+                JSONObject jsonObject = new JSONObject()
+                        .put(StrUtil.JSON_RESPONSE_STATUS_KEY, StrUtil.JSON_ERROR_RESPONSE)
+                        .put(StrUtil.JSON_RESPONSE_MESSAGE_KEY, "IP-API call failed");
+
+                currZipCode = jsonObject;
+            }
+        }, actCtx, null);
     }
 
 }
