@@ -4,6 +4,7 @@ public class PSForm {
 
     private String keyword;
     private String category;
+    private String categoryValue;
     private boolean condNew;
     private boolean condUsed;
     private boolean condUnspecified;
@@ -29,6 +30,15 @@ public class PSForm {
 
     public void setCategory(String category) {
         this.category = category;
+        this.setCategoryValue(this.identifyCategoryValue(category));
+    }
+
+    public String getCategoryValue() {
+        return categoryValue;
+    }
+
+    public void setCategoryValue(String categoryValue) {
+        this.categoryValue = categoryValue;
     }
 
     public boolean isCondNew() {
@@ -116,6 +126,7 @@ public class PSForm {
         return "PSForm{" +
                 "keyword='" + keyword + '\'' +
                 ", category='" + category + '\'' +
+                ", categoryValue='" + categoryValue + '\'' +
                 ", condNew=" + condNew +
                 ", condUsed=" + condUsed +
                 ", condUnspecified=" + condUnspecified +
@@ -127,5 +138,42 @@ public class PSForm {
                 ", custZipCode='" + custZipCode + '\'' +
                 ", zipCodeType='" + zipCodeType + '\'' +
                 '}';
+    }
+
+    private String identifyCategoryValue(String category) {
+        String catVal = "";
+        switch (category) {
+            case "All Categories":
+                catVal = "-1";
+                break;
+            case "Art":
+                catVal = "550";
+                break;
+            case "Baby":
+                catVal = "2984";
+                break;
+            case "Books":
+                catVal = "267";
+                break;
+            case "Clothing, Shoes & Accessories":
+                catVal = "11450";
+                break;
+            case "Computers/Tablets & Networking":
+                catVal = "58058";
+                break;
+            case "Health & Beauty":
+                catVal = "26395";
+                break;
+            case "Music":
+                catVal = "11233";
+                break;
+            case "Video Games & Consoles":
+                catVal = "1249";
+                break;
+            default:
+                catVal = "-1";
+                break;
+        }
+        return catVal;
     }
 }
