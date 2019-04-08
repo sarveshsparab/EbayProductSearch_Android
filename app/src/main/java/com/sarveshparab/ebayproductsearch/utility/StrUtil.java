@@ -12,4 +12,12 @@ public class StrUtil {
     public static final String JSON_RESPONSE_MESSAGE_KEY = "ResponseMessage";
     public static final String JSON_ERROR_RESPONSE = "Error";
     public static final String JSON_SUCCESS_RESPONSE = "Success";
+
+
+    public static final String NODE_BASE = "http://node-dot-csci-571-webtech-8.appspot.com/";
+
+    public static final String NODE_ZIP_AUTO = "zipAuto/startZip=";
+
+    public static final String ZIP_ARRAY = "postalCodes";
+    public static final String ZIP_ENTRY = "postalCode";
 }
