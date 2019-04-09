@@ -16,8 +16,10 @@ import java.util.Map;
 
 public class CallArbitrator {
 
-    public static void makeRequest(final String url, final NetworkCallBack callback, Context ctx, final Map<String, String> params) {
-        JSONRequest rq = new JSONRequest(Request.Method.GET, url, params, new Response.Listener() {
+    public static void makeRequest(final String url, final NetworkCallBack callback, Context ctx,
+                                   final Map<String, String> params) {
+        JSONRequest rq = new JSONRequest(Request.Method.GET,
+                url + StrUtil.formatQueryParams(params), params, new Response.Listener() {
             @Override
             public void onResponse(Object response) {
                 Log.v(StrUtil.LOG_TAG+"|NetworkSuccess", response.toString());
