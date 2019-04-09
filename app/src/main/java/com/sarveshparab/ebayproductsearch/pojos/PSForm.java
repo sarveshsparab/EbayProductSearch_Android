@@ -2,6 +2,14 @@ package com.sarveshparab.ebayproductsearch.pojos;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import com.sarveshparab.ebayproductsearch.utility.StrUtil;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PSForm implements Parcelable {
 
@@ -21,6 +29,15 @@ public class PSForm implements Parcelable {
 
     public PSForm() {
         // default blank constructor
+        this.miles = "10";
+        this.condNew = Boolean.FALSE;
+        this.condUsed = Boolean.FALSE;
+        this.condUnspecified = Boolean.FALSE;
+        this.freeShipping = Boolean.FALSE;
+        this.localPickup = Boolean.FALSE;
+        this.isNearBySearchEnabled = Boolean.FALSE;
+        this.currZipCode = "";
+        this.custZipCode = "";
     }
 
     public String getKeyword() {
@@ -184,6 +201,31 @@ public class PSForm implements Parcelable {
         return catVal;
     }
 
+    public Map<String, String> buildQueryParamsMap() {
+        Map<String, String> queryParamsMap = new HashMap<>();
+
+        try {
+            queryParamsMap.put("keyword", URLEncoder.encode(this.keyword, "UTF-8"));
+            queryParamsMap.put("category", this.categoryValue);
+            queryParamsMap.put("miles", this.miles);
+            queryParamsMap.put("condNew", this.condNew.toString());
+            queryParamsMap.put("condUsed", this.condUsed.toString());
+            queryParamsMap.put("condUnspecified", this.condUnspecified.toString());
+            queryParamsMap.put("freeShipping", this.freeShipping.toString());
+            queryParamsMap.put("localPickup", this.localPickup.toString());
+            queryParamsMap.put("zipCodeType", this.zipCodeType);
+            queryParamsMap.put("currZipCode", this.currZipCode);
+            queryParamsMap.put("custZipCode", this.custZipCode);
+            queryParamsMap.put("zipcode", this.zipCodeType.equals(StrUtil.ZIP_TYPE_CURR) ?
+                    this.currZipCode : this.custZipCode);
+            queryParamsMap.put("nearByEnabled", this.isNearBySearchEnabled.toString());
+        } catch (UnsupportedEncodingException e) {
+            Log.v(StrUtil.LOG_TAG+"|KeywordEncodingError", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return queryParamsMap;
+    }
 
     // Parcelable constructs
 
