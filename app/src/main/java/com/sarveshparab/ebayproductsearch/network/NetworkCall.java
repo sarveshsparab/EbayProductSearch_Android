@@ -12,12 +12,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class NetworkCall {
 
-    public static void fetchAutoCompleteZip(String text, final ZipAutoAdapter zipAutoAdapter,
-                                            Context actCtx) {
-        CallArbitrator.makeRequest(StrUtil.NODE_BASE + StrUtil.NODE_ZIP_AUTO + text,
+    public static void fetchAutoCompleteZip(final ZipAutoAdapter zipAutoAdapter,
+                                            Context actCtx, Map<String, String> params) {
+        CallArbitrator.makeRequest(StrUtil.NODE_BASE + StrUtil.NODE_ZIP_AUTO,
             new NetworkCallBack() {
                 @Override
                 public void onSuccess(JSONObject result) throws JSONException {
@@ -40,7 +41,7 @@ public class NetworkCall {
                 public void onError(String result) throws Exception {
                     Log.v(StrUtil.LOG_TAG + "|GeoNamesError", result.toString());
                 }
-            }, actCtx, null);
+            }, actCtx, params);
     }
 
 }
