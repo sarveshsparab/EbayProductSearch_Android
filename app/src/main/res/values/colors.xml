@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#6200ee</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#3700b3</color>
     <color name="colorAccent">#bb86fc</color>
+    <color name="colorSecondaryAccent">#fc5830</color>
 
     <color name="psFormAccent">@color/colorAccent</color>
-    <color name="psButtons">#fc5830</color>
+    <color name="psButtons">@color/colorSecondaryAccent</color>
     <color name="psButtonText">#fff</color>
     <color name="psErrorMessage">#d50000</color>
+
 </resources>
