@@ -27,6 +27,10 @@ public class StrUtil {
 
     public static final String PSFORM_PARCEL = "psFormParcel";
 
+
+    public static final String ZIP_AUTO_QP_KEY = "startZip";
+
+
     public static String formatQueryParams(Map<String,String> params) {
         StringBuilder qp = new StringBuilder();
 

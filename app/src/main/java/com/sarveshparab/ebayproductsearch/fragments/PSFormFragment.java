@@ -2,8 +2,6 @@ package com.sarveshparab.ebayproductsearch.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,20 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.activities.SearchResultsActivity;
 import com.sarveshparab.ebayproductsearch.adapters.ZipAutoAdapter;
@@ -43,12 +33,10 @@ import com.sarveshparab.ebayproductsearch.utility.PSFormUtil;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import com.sarveshparab.ebayproductsearch.utility.ValUtil;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,8 +113,11 @@ public class PSFormFragment extends Fragment {
             public boolean handleMessage(Message msg) {
                 if (msg.what == ValUtil.INITIATE_ZIP_AUTOCOMPLETE) {
                     if (!TextUtils.isEmpty(zipAutoCompleteTV.getText())) {
-                        NetworkCall.fetchAutoCompleteZip(zipAutoCompleteTV.getText().toString(),
-                                zipAutoAdapter, getActivity().getApplicationContext());
+                        NetworkCall.fetchAutoCompleteZip(zipAutoAdapter,
+                                getActivity().getApplicationContext(),
+                                new HashMap<String, String>() {{
+                                    put(StrUtil.ZIP_AUTO_QP_KEY, zipAutoCompleteTV.getText().toString());
+                                }});
                     }
                 }
                 return false;
