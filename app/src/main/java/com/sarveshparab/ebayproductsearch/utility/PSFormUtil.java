@@ -197,10 +197,10 @@ public class PSFormUtil {
         psForm.setMiles(psMilesET.getText().toString());
 
         if(psCurrLocRB.isChecked()) {
-            psForm.setZipCodeType("curr");
+            psForm.setZipCodeType(StrUtil.ZIP_TYPE_CURR);
             psForm.setCurrZipCode("");
         } else if (psCustLocRB.isChecked()) {
-            psForm.setZipCodeType("cust");
+            psForm.setZipCodeType(StrUtil.ZIP_TYPE_CUST);
             psForm.setCustZipCode(psCustLocET.getText().toString());
         }
 
