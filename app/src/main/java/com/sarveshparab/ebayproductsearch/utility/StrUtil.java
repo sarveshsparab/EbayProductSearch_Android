@@ -19,8 +19,10 @@ public class StrUtil {
 
 
     public static final String NODE_BASE = "http://node-dot-csci-571-webtech-8.appspot.com/";
+//    public static final String NODE_BASE = "http://10.26.30.251:3000/";
 
     public static final String NODE_ZIP_AUTO = "zipAuto/";
+    public static final String NODE_EBAY_FIND = "ebay/find/";
 
     public static final String ZIP_ARRAY = "postalCodes";
     public static final String ZIP_ENTRY = "postalCode";
@@ -29,6 +31,16 @@ public class StrUtil {
 
 
     public static final String ZIP_AUTO_QP_KEY = "startZip";
+
+
+    public static final String ZIP_TYPE_CURR = "curr";
+    public static final String ZIP_TYPE_CUST = "cust";
+
+    public static final String IN_WISHLIST_TAG = "in";
+    public static final String NOT_IN_WISHLIST_TAG = "out";
+
+
+    public static final String DEFAULT_NA_VALUE = "N/A";
 
 
     public static String formatQueryParams(Map<String,String> params) {
