@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class SellerDetails implements Parcelable{
     private String storeName;
+    private String storeURL;
     private String feedbackScore;
     private String popularity;
     private String feedbackStar;
@@ -14,8 +15,9 @@ public class SellerDetails implements Parcelable{
         this.containsDetails = false;
     }
 
-    public SellerDetails(String storeName, String feedbackScore, String popularity, String feedbackStar) {
+    public SellerDetails(String storeName, String storeURL, String feedbackScore, String popularity, String feedbackStar) {
         this.storeName = storeName;
+        this.storeURL = storeURL;
         this.feedbackScore = feedbackScore;
         this.popularity = popularity;
         this.feedbackStar = feedbackStar;
@@ -29,6 +31,14 @@ public class SellerDetails implements Parcelable{
     public void setStoreName(String storeName) {
         this.storeName = storeName;
         this.containsDetails = true;
+    }
+
+    public String getStoreURL() {
+        return storeURL;
+    }
+
+    public void setStoreURL(String storeURL) {
+        this.storeURL = storeURL;
     }
 
     public String getFeedbackScore() {
@@ -66,6 +76,7 @@ public class SellerDetails implements Parcelable{
     public String toString() {
         return "SellerDetails{" +
                 "storeName='" + storeName + '\'' +
+                ", storeURL='" + storeURL + '\'' +
                 ", feedbackScore='" + feedbackScore + '\'' +
                 ", popularity='" + popularity + '\'' +
                 ", feedbackStar='" + feedbackStar + '\'' +
@@ -83,6 +94,7 @@ public class SellerDetails implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.storeName);
+        dest.writeString(this.storeURL);
         dest.writeString(this.feedbackScore);
         dest.writeString(this.popularity);
         dest.writeString(this.feedbackStar);
@@ -91,6 +103,7 @@ public class SellerDetails implements Parcelable{
 
     protected SellerDetails(Parcel in) {
         this.storeName = in.readString();
+        this.storeURL = in.readString();
         this.feedbackScore = in.readString();
         this.popularity = in.readString();
         this.feedbackStar = in.readString();
