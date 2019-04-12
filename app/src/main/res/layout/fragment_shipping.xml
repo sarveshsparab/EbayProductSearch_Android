@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.ShippingFragment">
 
@@ -105,6 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -130,6 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -165,12 +167,14 @@
                             android:textColor="#000"
                             android:text="Popularity"/>
 
-                        <TextView
-                            android:id="@+id/shipfPopularityValueTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#787878"
-                            android:textSize="16sp"/>
+                        <com.wssholmes.stark.circular_score.CircularScoreView
+                            android:id="@+id/shipfPopularityValueCSV"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            app:setSecondaryColor="@color/colorPrimary"
+                            app:setPrimaryColor="@color/colorSecondaryAccent"
+                            app:setBackgroundColor="#e4e4e4"
+                            app:setTextColor="#000"/>
 
                     </TableRow>
 
@@ -251,6 +255,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -276,6 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -301,6 +307,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -398,6 +405,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -423,6 +431,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -448,6 +457,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
@@ -473,6 +483,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="7dp"
                         android:weightSum="1">
 
                         <TextView
