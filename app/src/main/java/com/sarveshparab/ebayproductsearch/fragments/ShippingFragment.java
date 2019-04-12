@@ -3,6 +3,8 @@ package com.sarveshparab.ebayproductsearch.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +107,21 @@ public class ShippingFragment extends Fragment {
         if(!StrUtil.checkValid(srDetails.getSellerDetails().getStoreName())){
             shipfStoreNameRowTR.setVisibility(View.GONE);
         } else {
-            shipfStoreNameValueTV.setText(srDetails.getSellerDetails().getStoreName());
+            StringBuilder storeLinkText = new StringBuilder();
+
+            if(StrUtil.checkValid(srDetails.getSellerDetails().getStoreURL())){
+                storeLinkText.append("<a href=\"");
+                storeLinkText.append(srDetails.getSellerDetails().getStoreURL());
+                storeLinkText.append("\">");
+            }
+            storeLinkText.append(srDetails.getSellerDetails().getStoreName());
+            if(StrUtil.checkValid(srDetails.getSellerDetails().getStoreURL())) {
+                storeLinkText.append("</a>");
+            }
+
+            shipfStoreNameValueTV.setAutoLinkMask(0);
+            shipfStoreNameValueTV.setText(Html.fromHtml(storeLinkText.toString(), Html.FROM_HTML_MODE_LEGACY));
+            shipfStoreNameValueTV.setMovementMethod(LinkMovementMethod.getInstance());
             shipfStoreNameRowTR.setVisibility(View.VISIBLE);
         }
 
