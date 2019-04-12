@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sarveshparab.ebayproductsearch.R;
-import com.sarveshparab.ebayproductsearch.fragments.PhotosFragment;
 import com.sarveshparab.ebayproductsearch.fragments.ProductFragment;
 import com.sarveshparab.ebayproductsearch.fragments.ShippingFragment;
 import com.sarveshparab.ebayproductsearch.fragments.SimilarFragment;
@@ -27,7 +26,6 @@ import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 
 public class ItemDetailsActivity extends AppCompatActivity implements
         ProductFragment.DataProgressListener,
-        PhotosFragment.OnFragmentInteractionListener,
         SimilarFragment.OnFragmentInteractionListener{
 
     @Override
