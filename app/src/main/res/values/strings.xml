@@ -35,5 +35,7 @@
         <item>Music</item>
         <item>Video Games &amp; Consoles</item>
     </string-array>
+    <string name="title_activity_item_details">ItemDetailsActivity</string>
+    <string name="bullet">•</string>
 
 </resources>
