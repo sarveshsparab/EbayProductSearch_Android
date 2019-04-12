@@ -23,6 +23,7 @@ import com.sarveshparab.ebayproductsearch.fragments.SimilarFragment;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
 import com.sarveshparab.ebayproductsearch.utility.IDUtil;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
+import com.sarveshparab.ebayproductsearch.utility.ValUtil;
 
 public class ItemDetailsActivity extends AppCompatActivity implements
         ProductFragment.DataProgressListener,
@@ -55,6 +56,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         final ViewPager itemDetailsPager = findViewById(R.id.itemDetailsPager);
+        itemDetailsPager.setOffscreenPageLimit(ValUtil.itemDetailsOffScreenPageLimit);
 
         IDUtil.initTabsPager(itemDetailsPager, getSupportFragmentManager(), data);
 

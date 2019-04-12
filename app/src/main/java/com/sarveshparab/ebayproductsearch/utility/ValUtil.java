@@ -10,6 +10,7 @@ public class ValUtil {
     public static final int ZIP_THRESHOLD = 2;
 
     public static final int TITLE_LENGTH_LIMIT = 39;
+    public static int itemDetailsOffScreenPageLimit = 3;
 
     public static int getDPVal(int dp, Context ctx){
         return ((int)(dp * ctx.getResources().getDisplayMetrics().density));
