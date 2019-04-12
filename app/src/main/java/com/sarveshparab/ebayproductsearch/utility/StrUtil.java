@@ -23,11 +23,13 @@ public class StrUtil {
 
     public static final String NODE_ZIP_AUTO = "zipAuto/";
     public static final String NODE_EBAY_FIND = "ebay/find/";
+    public static final String NODE_EBAY_DETAILS = "ebay/detail/";
 
     public static final String ZIP_ARRAY = "postalCodes";
     public static final String ZIP_ENTRY = "postalCode";
 
     public static final String PSFORM_PARCEL = "psFormParcel";
+    public static final String SR_ITEM_PARCEL = "srDetailsParcel";
 
 
     public static final String ZIP_AUTO_QP_KEY = "startZip";
@@ -60,4 +62,11 @@ public class StrUtil {
 
         return qp.toString();
     }
+
+    public static boolean checkValid(String str){
+        if(StrUtil.DEFAULT_NA_VALUE.equals(str) || str == null || "".equals(str))
+            return false;
+        return true;
+    }
+
 }
