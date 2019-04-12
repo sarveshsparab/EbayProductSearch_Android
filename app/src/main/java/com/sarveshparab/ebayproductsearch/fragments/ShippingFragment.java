@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
+import com.wssholmes.stark.circular_score.CircularScoreView;
 
 
 public class ShippingFragment extends Fragment {
@@ -29,6 +30,8 @@ public class ShippingFragment extends Fragment {
     private TextView shipfStoreNameValueTV, shipfFeedbackScoreValueTV;
     private TextView shipfShippingCostValueTV, shipfGlobalShippingValueTV, shipfHandlingTimeValueTV, shipfConditionValueTV;
     private TextView shipfPolicyValueTV, shipfReturnsWithinValueTV, shipfRefundModeValueTV, shipfShippedByValueTV;
+
+    private CircularScoreView shipfPopularityValueCSV;
 
     private LinearLayout shipfSoldByLL, shipfInfoLL, shipfReturnLL;
 
@@ -78,6 +81,8 @@ public class ShippingFragment extends Fragment {
         shipfInfoLL = view.findViewById(R.id.shipfInfoLL);
         shipfReturnLL = view.findViewById(R.id.shipfReturnLL);
 
+        shipfPopularityValueCSV = view.findViewById(R.id.shipfPopularityValueCSV);
+
         shipfProgressLL.setVisibility(View.VISIBLE);
         shipfContentsSV.setVisibility(View.GONE);
         shipfErrorLL.setVisibility(View.GONE);
@@ -114,7 +119,7 @@ public class ShippingFragment extends Fragment {
         if(!StrUtil.checkValid(srDetails.getSellerDetails().getPopularity())){
             shipfPopularityRowTR.setVisibility(View.GONE);
         } else {
-            //shipfStoreNameValueTV.setText(srDetails.getSellerDetails().getPopularity());
+            shipfPopularityValueCSV.setScore((int)Float.parseFloat(srDetails.getSellerDetails().getPopularity()));
             shipfPopularityRowTR.setVisibility(View.VISIBLE);
         }
 
