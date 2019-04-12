@@ -21,7 +21,10 @@ import com.sarveshparab.ebayproductsearch.expections.JSONDataException;
 import com.sarveshparab.ebayproductsearch.network.CallArbitrator;
 import com.sarveshparab.ebayproductsearch.network.NetworkCallBack;
 import com.sarveshparab.ebayproductsearch.pojos.PSForm;
+import com.sarveshparab.ebayproductsearch.pojos.ReturnsDetails;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
+import com.sarveshparab.ebayproductsearch.pojos.SellerDetails;
+import com.sarveshparab.ebayproductsearch.pojos.ShippingDetails;
 import com.sarveshparab.ebayproductsearch.utility.SRUtil;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 
@@ -82,6 +85,14 @@ public class SearchResultsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+
+        Log.v("EPS","resumed");
+
+        super.onResume();
+    }
+
     private void initiateAndPopulateSRListings(Context ctx, JSONObject result, String keyword) {
 
         TextView srResultKeyword = findViewById(R.id.srResultKeyword);
@@ -112,22 +123,31 @@ public class SearchResultsActivity extends AppCompatActivity {
         int srCount = result.length();
 
         for(int i=0; i<srCount; i++){
-            SRDetails srDetails = new SRDetails();
+            final SRDetails srDetails = new SRDetails();
 
             try {
-                srDetails.setItemId(SRUtil.fetchItemId(result, i));
+                final String itemId = SRUtil.fetchItemId(result, i);
+                srDetails.setItemId(itemId);
                 srDetails.setTitle(SRUtil.fetchTitle(result, i));
                 srDetails.setCondition(SRUtil.fetchCondition(result, i));
+                srDetails.setItemURL(SRUtil.fetchItemURL(result, i));
                 srDetails.setImageURL(SRUtil.fetchImageURL(result, i));
                 srDetails.setPrice(SRUtil.fetchPrice(result, i));
                 srDetails.setShippingCost(SRUtil.fetchShippingCost(result, i));
                 srDetails.setZipcode(SRUtil.fetchZipCode(result, i));
-//                srDetails.setShippingDetails(SRUtil.fetchShippingDetails(result, i));
-//                srDetails.setSellerDetails(SRUtil.fetchSellerDetails(result, i));
-//                srDetails.setReturnsDetails(SRUtil.fetchReturnsDetails(result, i));
+
+                final ShippingDetails shippingDetails = SRUtil.fetchShippingDetails(result, i);
+                final SellerDetails sellerDetails = SRUtil.fetchSellerDetails(result, i);
+                final ReturnsDetails returnsDetails = SRUtil.fetchReturnsDetails(result, i);
+
+                srDetails.setShippingDetails(shippingDetails);
+                srDetails.setSellerDetails(sellerDetails);
+                srDetails.setReturnsDetails(returnsDetails);
+
             } catch (JSONDataException e) {
                 Log.v(StrUtil.LOG_TAG+"|Error",e.getMessage());
             }
+
             srList.add(srDetails);
         }
 
