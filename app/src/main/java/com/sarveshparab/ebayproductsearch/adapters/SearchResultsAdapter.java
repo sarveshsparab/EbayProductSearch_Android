@@ -1,16 +1,20 @@
 package com.sarveshparab.ebayproductsearch.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sarveshparab.ebayproductsearch.R;
+import com.sarveshparab.ebayproductsearch.activities.ItemDetailsActivity;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 
@@ -25,6 +29,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
         public TextView srTitleTV, srZipTV, srShippingTV, srConditionTV, srPriceTV;
         public ImageView srWishListToggleIV, srImageIV;
+        public LinearLayout srListingsCLLL;
 
         public SRViewHolder(View itemView) {
             super(itemView);
@@ -35,6 +40,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             srPriceTV = itemView.findViewById(R.id.srPriceTV);
             srWishListToggleIV = itemView.findViewById(R.id.srWishListToggleIV);
             srImageIV = itemView.findViewById(R.id.srImageIV);
+            srListingsCLLL = itemView.findViewById(R.id.srListingsCLLL);
         }
     }
 
@@ -90,6 +96,17 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
         Glide.with(ctx).load(srDetails.getImageURL()).into(holder.srImageIV);
 
+        holder.srListingsCLLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v(StrUtil.LOG_TAG+"|Forward","To ItemDetails Activity");
+
+                Intent itemDetailsActivity = new Intent( ctx
+                        , ItemDetailsActivity.class);
+                itemDetailsActivity.putExtra(StrUtil.SR_ITEM_PARCEL, srDetails);
+                ctx.startActivity(itemDetailsActivity);
+            }
+        });
     }
 
     @Override
