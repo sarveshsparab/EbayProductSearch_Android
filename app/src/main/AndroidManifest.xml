@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sarveshparab.ebayproductsearch">
 
-    <!--<uses-feature-->
-        <!--android:name="android.hardware.wifi"-->
-        <!--android:required="true" />-->
+    <!-- <uses-feature -->
+    <!-- android:name="android.hardware.wifi" -->
+    <!-- android:required="true" /> -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,9 +12,9 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.PSSplashActivity"
@@ -25,15 +25,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LandingActivity"
-            android:label="@string/app_name">
-
-        </activity>
-        <activity android:name=".activities.SearchResultsActivity"
+        <activity
+            android:name=".LandingActivity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".activities.SearchResultsActivity"
             android:label="@string/sr_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LandingActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ItemDetailsActivity"
+            android:parentActivityName=".activities.SearchResultsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sarveshparab.ebayproductsearch.activities.SearchResultsActivity" />
         </activity>
     </application>
 
