@@ -14,6 +14,7 @@ public class SRDetails implements Parcelable {
     private String shippingCost;
     private String condition;
     private String price;
+    private String itemURL;
     private String imageURL;
     private ShippingDetails shippingDetails;
     private SellerDetails sellerDetails;
@@ -25,7 +26,7 @@ public class SRDetails implements Parcelable {
     }
 
     public SRDetails(String itemId, String title, String zipcode, String shippingCost,
-                     String condition, String price, String imageURL,
+                     String condition, String price, String itemURL, String imageURL,
                      ShippingDetails shippingDetails, SellerDetails sellerDetails,
                      ReturnsDetails returnsDetails, Boolean isInWishList) {
         this.itemId = itemId;
@@ -34,6 +35,7 @@ public class SRDetails implements Parcelable {
         this.shippingCost = shippingCost;
         this.condition = condition;
         this.price = price;
+        this.itemURL = itemURL;
         this.imageURL = imageURL;
         this.shippingDetails = shippingDetails;
         this.sellerDetails = sellerDetails;
@@ -95,6 +97,14 @@ public class SRDetails implements Parcelable {
         this.price = price;
     }
 
+    public String getItemURL() {
+        return itemURL;
+    }
+
+    public void setItemURL(String itemURL) {
+        this.itemURL = itemURL;
+    }
+
     public String getImageURL() {
         return imageURL;
     }
@@ -135,8 +145,6 @@ public class SRDetails implements Parcelable {
         isInWishList = inWishList;
     }
 
-    // Parcelable constructs
-
     @Override
     public String toString() {
         return "SRDetails{" +
@@ -147,6 +155,7 @@ public class SRDetails implements Parcelable {
                 ", shippingCost='" + shippingCost + '\'' +
                 ", condition='" + condition + '\'' +
                 ", price='" + price + '\'' +
+                ", itemURL='" + itemURL + '\'' +
                 ", imageURL='" + imageURL + '\'' +
                 ", shippingDetails=" + shippingDetails +
                 ", sellerDetails=" + sellerDetails +
@@ -163,6 +172,8 @@ public class SRDetails implements Parcelable {
         return cutoff;
     }
 
+    // Parcelable constructs
+
     @Override
     public int describeContents() {
         return 0;
@@ -177,6 +188,7 @@ public class SRDetails implements Parcelable {
         dest.writeString(this.shippingCost);
         dest.writeString(this.condition);
         dest.writeString(this.price);
+        dest.writeString(this.itemURL);
         dest.writeString(this.imageURL);
         dest.writeParcelable(this.shippingDetails, 0);
         dest.writeParcelable(this.sellerDetails, 0);
@@ -192,6 +204,7 @@ public class SRDetails implements Parcelable {
         this.shippingCost = in.readString();
         this.condition = in.readString();
         this.price = in.readString();
+        this.itemURL = in.readString();
         this.imageURL = in.readString();
         this.shippingDetails = in.readParcelable(ShippingDetails.class.getClassLoader());
         this.sellerDetails = in.readParcelable(SellerDetails.class.getClassLoader());
