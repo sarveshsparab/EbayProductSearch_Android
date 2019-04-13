@@ -24,6 +24,9 @@
     <string name="psShip1CBLabel">Local Pickup</string>
     <string name="psShip2CBLabel">Free Shipping</string>
 
+    <string name="title_activity_item_details">ItemDetailsActivity</string>
+    <string name="bullet">•</string>
+
     <string-array name="psCategoryTypes">
         <item>All</item>
         <item>Art</item>
@@ -35,7 +38,17 @@
         <item>Music</item>
         <item>Video Games &amp; Consoles</item>
     </string-array>
-    <string name="title_activity_item_details">ItemDetailsActivity</string>
-    <string name="bullet">•</string>
+
+    <string-array name="sortParams">
+        <item>Default</item>
+        <item>Name</item>
+        <item>Price</item>
+        <item>Days</item>
+    </string-array>
+
+    <string-array name="sortOrder">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
 
 </resources>
