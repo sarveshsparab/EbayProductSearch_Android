@@ -81,4 +81,11 @@ public class SimFragAdapter extends RecyclerView.Adapter<SimFragAdapter.SimFragV
         return simList.size();
     }
 
+    public void setSimList(List<SimilarItem> simList) {
+        this.simList = simList;
+    }
+
+    public List<SimilarItem> getSimList() {
+        return simList;
+    }
 }
