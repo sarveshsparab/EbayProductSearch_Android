@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.adapters.SimFragAdapter;
+import com.sarveshparab.ebayproductsearch.expections.JSONDataException;
 import com.sarveshparab.ebayproductsearch.network.CallArbitrator;
 import com.sarveshparab.ebayproductsearch.network.NetworkCallBack;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
@@ -31,6 +33,7 @@ public class SimilarFragment extends Fragment {
 
     private LinearLayout simfProgressLL, simfErrorLL, simfListingLL, simfSortLL;
     private RecyclerView simfRV;
+    private Spinner simfSortOrderSpin, simfSortParamSpin;
 
     public SimilarFragment() {
         // Required empty public constructor
@@ -51,11 +54,17 @@ public class SimilarFragment extends Fragment {
         simfSortLL = view.findViewById(R.id.simfSortLL);
         simfListingLL = view.findViewById(R.id.simfListingLL);
         simfRV = view.findViewById(R.id.simfRV);
+        simfSortOrderSpin = view.findViewById(R.id.simfSortOrderSpin);
+        simfSortParamSpin = view.findViewById(R.id.simfSortParamSpin);
 
         simfProgressLL.setVisibility(View.VISIBLE);
         simfErrorLL.setVisibility(View.GONE);
         simfSortLL.setVisibility(View.GONE);
         simfListingLL.setVisibility(View.GONE);
+        simfSortOrderSpin.setEnabled(false);
+        simfSortParamSpin.setEnabled(false);
+
+        SimFragUtil.populateSortingSpinners(getContext(), simfSortOrderSpin, simfSortParamSpin);
 
         final SRDetails srDetails = getArguments().getParcelable(StrUtil.SR_ITEM_PARCEL);
         Log.v(StrUtil.LOG_TAG+"|ForwardFragACK",srDetails.getItemId());
@@ -66,27 +75,41 @@ public class SimilarFragment extends Fragment {
                 public void onSuccess(JSONObject result) throws JSONException {
                     Log.v(StrUtil.LOG_TAG+"|EbaySimilarSuccess", result.toString());
 
-                    List<SimilarItem> simList = SimFragUtil.fetchSimilarItems(result);
+                    try {
+                        List<SimilarItem> simList = SimFragUtil.fetchSimilarItems(result);
+
+                        simfProgressLL.setVisibility(View.GONE);
+
+                        if(simList.size() == 0){
+                            simfErrorLL.setVisibility(View.VISIBLE);
+                            simfSortLL.setVisibility(View.VISIBLE);
+                            simfListingLL.setVisibility(View.GONE);
+                            simfSortOrderSpin.setEnabled(false);
+                            simfSortParamSpin.setEnabled(false);
+                        } else {
+                            SimFragAdapter adapter = new SimFragAdapter(getContext(), simList);
+                            simfRV.setItemAnimator(new DefaultItemAnimator());
+                            simfRV.setLayoutManager(new LinearLayoutManager(getContext()));
+                            simfRV.setAdapter(adapter);
 
 
 
-                    simfProgressLL.setVisibility(View.GONE);
-
-                    if(simList.size() == 0){
+                            simfSortOrderSpin.setEnabled(true);
+                            simfSortParamSpin.setEnabled(true);
+                            simfErrorLL.setVisibility(View.GONE);
+                            simfSortLL.setVisibility(View.VISIBLE);
+                            simfListingLL.setVisibility(View.VISIBLE);
+                        }
+                    } catch (JSONDataException e){
+                        Log.v(StrUtil.LOG_TAG + "|EbaySimilarError", "fetchSimilarItems call threw an exception\n"+e.getMessage());
+                        simfProgressLL.setVisibility(View.GONE);
                         simfErrorLL.setVisibility(View.VISIBLE);
                         simfSortLL.setVisibility(View.VISIBLE);
-
                         simfListingLL.setVisibility(View.GONE);
-                    } else {
-                        SimFragAdapter adapter = new SimFragAdapter(getContext(), simList);
-                        simfRV.setItemAnimator(new DefaultItemAnimator());
-                        simfRV.setLayoutManager(new LinearLayoutManager(getContext()));
-                        simfRV.setAdapter(adapter);
-
-                        simfErrorLL.setVisibility(View.GONE);
-                        simfSortLL.setVisibility(View.VISIBLE);
-                        simfListingLL.setVisibility(View.VISIBLE);
+                        simfSortOrderSpin.setEnabled(false);
+                        simfSortParamSpin.setEnabled(false);
                     }
+
                 }
 
                 @Override
@@ -96,6 +119,8 @@ public class SimilarFragment extends Fragment {
                     simfErrorLL.setVisibility(View.VISIBLE);
                     simfSortLL.setVisibility(View.VISIBLE);
                     simfListingLL.setVisibility(View.GONE);
+                    simfSortOrderSpin.setEnabled(false);
+                    simfSortParamSpin.setEnabled(false);
                 }
             }, getContext(), new HashMap<String, String>(){{
                 put("itemid", srDetails.getItemId());
