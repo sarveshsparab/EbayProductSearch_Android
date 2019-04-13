@@ -27,7 +27,7 @@ public class CallArbitrator {
                     JSONObject jResponse = (JSONObject)response;
                     callback.onSuccess(jResponse);
                 } catch (Exception e) {
-                    Log.v(StrUtil.LOG_TAG+"|NetworkSuccess|ExceptionRaised", e.getMessage());
+                    Log.v(StrUtil.LOG_TAG+"|NetworkSuccess|ExceptionRaised", e.toString());
                     e.printStackTrace();
                 }
             }
