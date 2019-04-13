@@ -19,15 +19,13 @@ import android.widget.Toast;
 import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.fragments.ProductFragment;
 import com.sarveshparab.ebayproductsearch.fragments.ShippingFragment;
-import com.sarveshparab.ebayproductsearch.fragments.SimilarFragment;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
 import com.sarveshparab.ebayproductsearch.utility.IDUtil;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import com.sarveshparab.ebayproductsearch.utility.ValUtil;
 
 public class ItemDetailsActivity extends AppCompatActivity implements
-        ProductFragment.DataProgressListener,
-        SimilarFragment.OnFragmentInteractionListener{
+        ProductFragment.DataProgressListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,11 +131,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements
         Log.v("EPS","back pressed");
 
         super.onBackPressed();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override
