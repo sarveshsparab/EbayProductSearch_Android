@@ -224,9 +224,12 @@ public class ProdFragUtil {
             }
             for(int img=0; img<itemImagesList.size(); img++){
                 ImageView imageView = new ImageView(ctx);
-                imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams imgLayoutParams = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+                imgLayoutParams.setMarginStart(ValUtil.getDPVal(ValUtil.HOR_SCROLL_VIEW_IMG_MARGIN_START, ctx));
+                imgLayoutParams.setMarginEnd(ValUtil.getDPVal(ValUtil.HOR_SCROLL_VIEW_IMG_MARGIN_END, ctx));
+                imageView.setLayoutParams(imgLayoutParams);
                 Glide.with(ctx).load(itemImagesList.get(img)).into(imageView);
 
                 profHSVLL.addView(imageView);
