@@ -26,6 +26,7 @@ import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,6 +64,8 @@ public class SimilarFragment extends Fragment {
         simfListingLL.setVisibility(View.GONE);
         simfSortOrderSpin.setEnabled(false);
         simfSortParamSpin.setEnabled(false);
+        simfSortOrderSpin.setSelection(0);
+        simfSortParamSpin.setSelection(0);
 
         SimFragUtil.populateSortingSpinners(getContext(), simfSortOrderSpin, simfSortParamSpin);
 
@@ -76,7 +79,11 @@ public class SimilarFragment extends Fragment {
                     Log.v(StrUtil.LOG_TAG+"|EbaySimilarSuccess", result.toString());
 
                     try {
-                        List<SimilarItem> simList = SimFragUtil.fetchSimilarItems(result);
+                        final List<SimilarItem> simList = SimFragUtil.fetchSimilarItems(result);
+                        final List<SimilarItem> simListDefaultCopy = new ArrayList<>();
+                        for(SimilarItem s : simList) {
+                            simListDefaultCopy.add(s.deepCopy());
+                        }
 
                         simfProgressLL.setVisibility(View.GONE);
 
@@ -86,30 +93,36 @@ public class SimilarFragment extends Fragment {
                             simfListingLL.setVisibility(View.GONE);
                             simfSortOrderSpin.setEnabled(false);
                             simfSortParamSpin.setEnabled(false);
+                            simfSortOrderSpin.setSelection(0);
+                            simfSortParamSpin.setSelection(0);
                         } else {
-                            SimFragAdapter adapter = new SimFragAdapter(getContext(), simList);
+                            final SimFragAdapter adapter = new SimFragAdapter(getContext(), new ArrayList<SimilarItem>());
                             simfRV.setItemAnimator(new DefaultItemAnimator());
                             simfRV.setLayoutManager(new LinearLayoutManager(getContext()));
                             simfRV.setAdapter(adapter);
 
-
-
-                            simfSortOrderSpin.setEnabled(true);
+                            simfSortOrderSpin.setEnabled(false);
                             simfSortParamSpin.setEnabled(true);
+                            simfSortOrderSpin.setSelection(0);
+                            simfSortParamSpin.setSelection(0);
+
+                            SimFragUtil.handleSortSpinnerChangeListeners(simList, simListDefaultCopy, adapter,simfSortParamSpin, simfSortOrderSpin);
+
                             simfErrorLL.setVisibility(View.GONE);
                             simfSortLL.setVisibility(View.VISIBLE);
                             simfListingLL.setVisibility(View.VISIBLE);
                         }
                     } catch (JSONDataException e){
-                        Log.v(StrUtil.LOG_TAG + "|EbaySimilarError", "fetchSimilarItems call threw an exception\n"+e.getMessage());
+                        Log.v(StrUtil.LOG_TAG + "|EbaySimilarError", "fetchSimilarItems call threw an exception\n"+e);
                         simfProgressLL.setVisibility(View.GONE);
                         simfErrorLL.setVisibility(View.VISIBLE);
                         simfSortLL.setVisibility(View.VISIBLE);
                         simfListingLL.setVisibility(View.GONE);
                         simfSortOrderSpin.setEnabled(false);
                         simfSortParamSpin.setEnabled(false);
+                        simfSortOrderSpin.setSelection(0);
+                        simfSortParamSpin.setSelection(0);
                     }
-
                 }
 
                 @Override
