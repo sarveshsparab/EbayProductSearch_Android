@@ -24,6 +24,7 @@ public class StrUtil {
     public static final String NODE_ZIP_AUTO = "zipAuto/";
     public static final String NODE_EBAY_FIND = "ebay/find/";
     public static final String NODE_EBAY_DETAILS = "ebay/detail/";
+    public static final String NODE_EBAY_SIMILAR = "ebay/similar/";
     public static final String NODE_PHOTOS = "photos/";
 
     public static final String ZIP_ARRAY = "postalCodes";
