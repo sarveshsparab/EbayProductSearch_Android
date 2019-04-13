@@ -1,10 +1,13 @@
 package com.sarveshparab.ebayproductsearch.utility;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.sarveshparab.ebayproductsearch.R;
+import com.sarveshparab.ebayproductsearch.adapters.SimFragAdapter;
 import com.sarveshparab.ebayproductsearch.expections.JSONDataException;
 import com.sarveshparab.ebayproductsearch.pojos.SimilarItem;
 
@@ -13,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SimFragUtil {
@@ -29,11 +34,17 @@ public class SimFragUtil {
 
                     sItem.setItemId(fetchItemId(itemArr.getJSONObject(i)));
                     sItem.setTitle(fetchTitle(itemArr.getJSONObject(i)));
-                    sItem.setShippingCost(fetchShippingCost(itemArr.getJSONObject(i)));
-                    sItem.setDaysLeft(fetchDaysLeft(itemArr.getJSONObject(i)));
-                    sItem.setPrice(fetchPrice(itemArr.getJSONObject(i)));
                     sItem.setImageURL(fetchImageURL(itemArr.getJSONObject(i)));
                     sItem.setItemURL(fetchItemURL(itemArr.getJSONObject(i)));
+                    sItem.setShippingCost(fetchShippingCost(itemArr.getJSONObject(i)));
+
+                    String fetchDaysLeft = fetchDaysLeft(itemArr.getJSONObject(i));
+                    sItem.setDaysLeft(StrUtil.DEFAULT_NA_VALUE.equals(fetchDaysLeft) ? fetchDaysLeft : (Integer.parseInt(fetchDaysLeft) > 1 ? fetchDaysLeft + " Days Left" : fetchDaysLeft + " Day Left"));
+                    sItem.setDaysLeftVal(StrUtil.DEFAULT_NA_VALUE.equals(fetchDaysLeft) ? "0" : fetchDaysLeft);
+
+                    String priceFetched = fetchPrice(itemArr.getJSONObject(i));
+                    sItem.setPrice(StrUtil.DEFAULT_NA_VALUE.equals(priceFetched) ? priceFetched : "$" + priceFetched);
+                    sItem.setPriceVal(StrUtil.DEFAULT_NA_VALUE.equals(priceFetched) ? "0.0" : priceFetched);
 
                     simList.add(sItem);
                 }
@@ -84,7 +95,7 @@ public class SimFragUtil {
             if(res != null){
                 if(res.has("buyItNowPrice")){
                     if(res.getJSONObject("buyItNowPrice").has("__value__")) {
-                        retVal = "$" + res.getJSONObject("buyItNowPrice").getString("__value__");
+                        retVal = res.getJSONObject("buyItNowPrice").getString("__value__");
                     }
                 }
             }
@@ -103,7 +114,6 @@ public class SimFragUtil {
                     retVal = res.getString("timeLeft");
                     retVal = retVal.substring(1, retVal.length());
                     retVal = retVal.substring(0, retVal.indexOf("D"));
-                    retVal += Integer.parseInt(retVal) > 1 ? " Days Left" : " Day Left";
                 }
             }
         } catch (JSONException e) {
@@ -209,5 +219,83 @@ public class SimFragUtil {
                 ctx.getResources().getStringArray(R.array.sortParams));
         simfParamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         simfSortParamSpin.setAdapter(simfParamAdapter);
+    }
+
+    public static void customSort(int paramPos, int orderPos, SimFragAdapter adapter, List<SimilarItem> simList) {
+        switch (paramPos){
+            case 1:
+                Collections.sort(simList, new Comparator<SimilarItem>() {
+                    @Override
+                    public int compare(SimilarItem lhs, SimilarItem rhs) {
+                        return lhs.getTitle().compareTo(rhs.getTitle());
+                    }
+                });
+                break;
+            case 2:
+                Collections.sort(simList, new Comparator<SimilarItem>() {
+                    @Override
+                    public int compare(SimilarItem lhs, SimilarItem rhs) {
+                        return Float.valueOf(lhs.getPriceVal()).compareTo(Float.valueOf(rhs.getPriceVal()));
+                    }
+                });
+                break;
+            case 3:
+                Collections.sort(simList, new Comparator<SimilarItem>() {
+                    @Override
+                    public int compare(SimilarItem lhs, SimilarItem rhs) {
+                        return Integer.valueOf(lhs.getDaysLeftVal()).compareTo(Integer.valueOf(rhs.getDaysLeftVal()));
+                    }
+                });
+                break;
+        }
+
+        if(orderPos == 1){
+            Collections.reverse(simList);
+        }
+    }
+
+    public static void handleSortSpinnerChangeListeners(final List<SimilarItem> simList,
+                                                        final List<SimilarItem> simListDefaultCopy,
+                                                        final SimFragAdapter adapter,
+                                                        final Spinner simfSortParamSpin,
+                                                        final Spinner simfSortOrderSpin) {
+        simfSortParamSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        simfSortOrderSpin.setEnabled(false);
+                        adapter.setSimList(simListDefaultCopy);
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                        simfSortOrderSpin.setEnabled(true);
+                        SimFragUtil.customSort(position, simfSortOrderSpin.getSelectedItemPosition(), adapter, simList);
+                        adapter.setSimList(simList);
+                        break;
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        simfSortOrderSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SimFragUtil.customSort(simfSortParamSpin.getSelectedItemPosition(), position, adapter, simList);
+                adapter.setSimList(simList);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
