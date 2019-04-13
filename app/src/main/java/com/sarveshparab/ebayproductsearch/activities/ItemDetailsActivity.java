@@ -54,7 +54,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         final ViewPager itemDetailsPager = findViewById(R.id.itemDetailsPager);
-        itemDetailsPager.setOffscreenPageLimit(ValUtil.itemDetailsOffScreenPageLimit);
+        itemDetailsPager.setOffscreenPageLimit(ValUtil.ITEM_DETAIL_OFF_SCREEN_PAGE_LIMIT);
 
         IDUtil.initTabsPager(itemDetailsPager, getSupportFragmentManager(), data);
 
