@@ -25,44 +25,44 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/wishRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
         android:visibility="visible"
+        android:layout_marginBottom="45dp"
         android:scrollbars="none"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/colorSecondaryAccent"
+        android:orientation="horizontal"
         android:paddingStart="5dp"
-        android:paddingEnd="5dp"
         android:paddingTop="10dp"
+        android:paddingEnd="5dp"
         android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:weightSum="1">
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/wishfItemCountTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#fff"
-            android:gravity="start"
             android:layout_weight="0.5"
-            android:text="Wishlist total(4 items):"/>
+            android:gravity="start"
+            android:text="Wishlist total(4 items):"
+            android:textColor="#fff"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/wishfNetValTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="#fff"
-            android:gravity="end"
-            android:textStyle="bold"
             android:layout_weight="0.5"
-            android:text="$254.99"/>
-
+            android:gravity="end"
+            android:text="$254.99"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
