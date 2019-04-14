@@ -9,5 +9,6 @@
     <color name="psButtons">@color/colorSecondaryAccent</color>
     <color name="psButtonText">#fff</color>
     <color name="psErrorMessage">#d50000</color>
+    <color name="lightGreyText">#787878</color>
 
 </resources>
