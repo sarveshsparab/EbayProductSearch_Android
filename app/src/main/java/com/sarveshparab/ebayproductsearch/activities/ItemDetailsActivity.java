@@ -26,6 +26,8 @@ import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import com.sarveshparab.ebayproductsearch.utility.ValUtil;
 import com.sarveshparab.ebayproductsearch.utility.WishListUtil;
 
+import java.util.Map;
+
 public class ItemDetailsActivity extends AppCompatActivity implements
         ProductFragment.DataProgressListener{
 
@@ -86,6 +88,31 @@ public class ItemDetailsActivity extends AppCompatActivity implements
 
         IDUtil.initTabs(this, tabLayout);
 
+        syncAndShowWishlistItems(srDetails);
+
+        SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener = (prefs, key) -> {
+            syncAndShowWishlistItems(srDetails);
+        };
+
+        wishPref.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
+
+
+    }
+
+    private void syncAndShowWishlistItems(SRDetails srDetails) {
+        FloatingActionButton idWishListToggleBtn = findViewById(R.id.idWishListToggleBtn);
+
+        Map<String, ?> wishPrefAllAgain = wishPref.getAll();
+
+        if(wishPrefAllAgain.containsKey(StrUtil.ITEM_KEY_PREFIX + srDetails.getItemId())){
+            srDetails.setInWishList(true);
+            idWishListToggleBtn.setImageResource(R.drawable.cart_remove_white);
+            idWishListToggleBtn.setTag(StrUtil.IN_WISHLIST_TAG);
+        } else {
+            srDetails.setInWishList(false);
+            idWishListToggleBtn.setImageResource(R.drawable.cart_plus_white);
+            idWishListToggleBtn.setTag(StrUtil.NOT_IN_WISHLIST_TAG);
+        }
     }
 
     private void handleFBShare(final String title, final String url, final String price) {
