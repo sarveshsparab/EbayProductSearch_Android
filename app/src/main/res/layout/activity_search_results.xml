@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SearchResultsActivity"
+    android:background="#f1f1f1"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -53,8 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/psFormTopMargin"
-        android:layout_marginStart="@dimen/psFormLeftMarginTV"
-        android:layout_marginEnd="@dimen/psFormLeftMarginTV"
         android:orientation="vertical">
 
         <LinearLayout
@@ -62,12 +61,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
+            android:layout_marginStart="5dp"
+            android:padding="4dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textSize="15sp"
                 android:text="Showing "/>
 
             <TextView
@@ -75,18 +76,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textSize="15sp"
                 android:textColor="@color/colorSecondaryAccent"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textSize="15sp"
                 android:text=" results for "/>
 
             <TextView
                 android:id="@+id/srResultKeyword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15sp"
                 android:textColor="@color/colorSecondaryAccent"
                 android:textStyle="bold"/>
 
