@@ -18,6 +18,8 @@ public class CallArbitrator {
 
     public static void makeRequest(final String url, final NetworkCallBack callback, Context ctx,
                                    final Map<String, String> params) {
+        Log.v(StrUtil.LOG_TAG+"|NetworkCall", url + StrUtil.formatQueryParams(params));
+
         JSONRequest rq = new JSONRequest(Request.Method.GET,
                 url + StrUtil.formatQueryParams(params), params, new Response.Listener() {
             @Override
