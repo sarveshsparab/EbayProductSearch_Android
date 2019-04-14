@@ -1,6 +1,7 @@
 package com.sarveshparab.ebayproductsearch.activities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SearchResultsActivity extends AppCompatActivity {
 
@@ -40,6 +42,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private RecyclerView srListingsRV;
     private List<SRDetails> srList;
     private SearchResultsAdapter searchResultsAdapter;
+    private SharedPreferences wishPref;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +89,22 @@ public class SearchResultsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
-        Log.v("EPS","resumed");
-
         super.onResume();
+        if(srList != null) {
+            wishPref = getApplicationContext().getSharedPreferences(StrUtil.WISHLIST_PREF, MODE_PRIVATE);
+
+            Map<String, ?> wishPrefAllAgain = wishPref.getAll();
+
+            for (SRDetails srItem : srList) {
+                if (wishPrefAllAgain.containsKey(StrUtil.ITEM_KEY_PREFIX + srItem.getItemId())) {
+                    srItem.setInWishList(true);
+                } else {
+                    srItem.setInWishList(false);
+                }
+            }
+
+            searchResultsAdapter.notifyDataSetChanged();
+        }
     }
 
     private void initiateAndPopulateSRListings(Context ctx, JSONObject result, String keyword) {
@@ -98,7 +113,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         TextView srResultCount = findViewById(R.id.srResultCount);
 
         srList = new ArrayList<>();
-        searchResultsAdapter = new SearchResultsAdapter(ctx, srList);
+        searchResultsAdapter = new SearchResultsAdapter(ctx, srList, getApplicationContext());
         
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ctx, 2);
         srListingsRV.setLayoutManager(layoutManager);
