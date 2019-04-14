@@ -182,7 +182,7 @@ public class PSForm implements Parcelable {
             case "Clothing, Shoes & Accessories":
                 catVal = "11450";
                 break;
-            case "Computers/Tablets & Networking":
+            case "Computers, Tablets & Networking":
                 catVal = "58058";
                 break;
             case "Health & Beauty":
