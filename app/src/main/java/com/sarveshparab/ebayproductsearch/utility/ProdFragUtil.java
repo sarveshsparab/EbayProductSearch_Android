@@ -250,7 +250,8 @@ public class ProdFragUtil {
             for(int spec=0; spec<itemSpecsList.size(); spec++){
                 TableRow specRow = (TableRow)inflater.inflate(R.layout.spec_row, profSpecsTL, false);
                 TextView profSpecsRowValueTV = specRow.findViewById(R.id.profSpecsRowValueTV);
-                profSpecsRowValueTV.setText(itemSpecsList.get(spec));
+                String specText = itemSpecsList.get(spec);
+                profSpecsRowValueTV.setText(specText.substring(0, 1).toUpperCase() + specText.substring(1));
                 profSpecsTL.addView(specRow);
             }
 
