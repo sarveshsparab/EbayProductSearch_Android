@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".fragments.WishListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/wishfErrorLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:visibility="gone"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="No Wishes"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/wishRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:visibility="visible"
+        android:scrollbars="none"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorSecondaryAccent"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/wishfItemCountTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:gravity="start"
+            android:layout_weight="0.5"
+            android:text="Wishlist total(4 items):"/>
+
+        <TextView
+            android:id="@+id/wishfNetValTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="#fff"
+            android:gravity="end"
+            android:textStyle="bold"
+            android:layout_weight="0.5"
+            android:text="$254.99"/>
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
