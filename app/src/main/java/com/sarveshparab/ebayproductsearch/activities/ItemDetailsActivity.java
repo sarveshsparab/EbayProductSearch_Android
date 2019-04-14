@@ -1,6 +1,7 @@
 package com.sarveshparab.ebayproductsearch.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,15 +24,22 @@ import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
 import com.sarveshparab.ebayproductsearch.utility.IDUtil;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import com.sarveshparab.ebayproductsearch.utility.ValUtil;
+import com.sarveshparab.ebayproductsearch.utility.WishListUtil;
 
 public class ItemDetailsActivity extends AppCompatActivity implements
         ProductFragment.DataProgressListener{
+
+    private SharedPreferences wishPref;
+    private SharedPreferences.Editor prefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
+
+        wishPref = getApplicationContext().getSharedPreferences(StrUtil.WISHLIST_PREF, MODE_PRIVATE);
+        prefEditor = wishPref.edit();
 
         Toolbar toolbar = findViewById(R.id.idToolbar);
         setSupportActionBar(toolbar);
@@ -47,8 +55,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements
         handleFBShare(srDetails.getTitle(),srDetails.getItemURL(), srDetails.getPrice());
 
         handleAndProcessWishListToggle(srDetails);
-
-
 
         // Tab setup
 
@@ -114,13 +120,18 @@ public class ItemDetailsActivity extends AppCompatActivity implements
                     Toast.makeText(v.getContext(),srDetails.getTitleCutoff()
                                     + " was removed from wish list",
                             Toast.LENGTH_SHORT).show();
+                    srDetails.setInWishList(false);
+                    prefEditor.remove(StrUtil.ITEM_KEY_PREFIX + srDetails.getItemId());
                 } else {
                     ((ImageView)v).setImageResource(R.drawable.cart_remove_white);
                     v.setTag(StrUtil.IN_WISHLIST_TAG);
                     Toast.makeText(v.getContext(),srDetails.getTitleCutoff()
                                     + " was added to wish list",
                             Toast.LENGTH_SHORT).show();
+                    srDetails.setInWishList(true);
+                    prefEditor.putString(StrUtil.ITEM_KEY_PREFIX + srDetails.getItemId(), WishListUtil.gson.toJson(srDetails));
                 }
+                prefEditor.commit();
             }
         });
     }
