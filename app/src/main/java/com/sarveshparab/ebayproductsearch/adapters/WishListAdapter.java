@@ -2,6 +2,7 @@ package com.sarveshparab.ebayproductsearch.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +18,18 @@ import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.activities.ItemDetailsActivity;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
+import com.sarveshparab.ebayproductsearch.utility.WishListUtil;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.SRViewHolder> {
 
     private Context ctx;
     private List<SRDetails> srList;
+    private SharedPreferences wishPref;
+    private SharedPreferences.Editor prefEditor;
 
     public class SRViewHolder extends RecyclerView.ViewHolder {
 
@@ -44,9 +50,11 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.SRView
         }
     }
 
-    public WishListAdapter(Context ctx, List<SRDetails> srList){
+    public WishListAdapter(Context ctx, List<SRDetails> srList, Context appCtx){
         this.ctx = ctx;
         this.srList = srList;
+        wishPref = appCtx.getSharedPreferences(StrUtil.WISHLIST_PREF, MODE_PRIVATE);
+        prefEditor = wishPref.edit();
     }
 
     @Override
@@ -84,13 +92,18 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.SRView
                     Toast.makeText(v.getContext(),srDetails.getTitleCutoff()
                                     + " was removed from wish list",
                             Toast.LENGTH_SHORT).show();
+                    srDetails.setInWishList(false);
+                    prefEditor.remove(StrUtil.ITEM_KEY_PREFIX + srDetails.getItemId());
                 } else {
                     ((ImageView)v).setImageResource(R.drawable.cart_remove);
                     v.setTag(StrUtil.IN_WISHLIST_TAG);
                     Toast.makeText(v.getContext(),srDetails.getTitleCutoff()
                                     + " was added to wish list",
                             Toast.LENGTH_SHORT).show();
+                    srDetails.setInWishList(true);
+                    prefEditor.putString(StrUtil.ITEM_KEY_PREFIX + srDetails.getItemId(), WishListUtil.gson.toJson(srDetails));
                 }
+                prefEditor.commit();
             }
         });
 
