@@ -44,12 +44,6 @@ public class SRUtil {
                     } else if (result.getJSONArray("findItemsAdvancedResponse").getJSONObject(0).getJSONArray("searchResult").getJSONObject(0) == null) {
                         isValid = false;
                         throw new JSONDataException("Ebay Find Call | No Results");
-                    } else if (result.getJSONArray("findItemsAdvancedResponse").getJSONObject(0).getJSONArray("searchResult").getJSONObject(0).getJSONArray("item") == null) {
-                        isValid = false;
-                        throw new JSONDataException("Ebay Find Call | No Results");
-                    } else if (result.getJSONArray("findItemsAdvancedResponse").getJSONObject(0).getJSONArray("searchResult").getJSONObject(0).getJSONArray("item").length() == 0) {
-                        isValid = false;
-                        throw new JSONDataException("Ebay Find Call | No Results");
                     }
                 }
             }

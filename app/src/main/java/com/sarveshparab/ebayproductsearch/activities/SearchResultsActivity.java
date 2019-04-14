@@ -38,7 +38,7 @@ import java.util.Map;
 
 public class SearchResultsActivity extends AppCompatActivity {
 
-    private LinearLayout srProgressLL, srListingsLL;
+    private LinearLayout srProgressLL, srListingsLL, srErrorLL;
     private RecyclerView srListingsRV;
     private List<SRDetails> srList;
     private SearchResultsAdapter searchResultsAdapter;
@@ -56,10 +56,12 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         srProgressLL = findViewById(R.id.srProgressLL);
         srListingsLL = findViewById(R.id.srListingsLL);
+        srErrorLL = findViewById(R.id.srErrorLL);
         srListingsRV = findViewById(R.id.srListingsRV);
         
         srProgressLL.setVisibility(View.VISIBLE);
         srListingsLL.setVisibility(View.GONE);
+        srErrorLL.setVisibility(View.GONE);
 
         Bundle data = getIntent().getExtras();
         final PSForm psForm = (PSForm) data.getParcelable(StrUtil.PSFORM_PARCEL);
@@ -71,16 +73,27 @@ public class SearchResultsActivity extends AppCompatActivity {
                 public void onSuccess(JSONObject result) throws JSONException {
                     Log.v(StrUtil.LOG_TAG+"|EbayFindSuccess", result.toString());
 
-                    initiateAndPopulateSRListings(getApplicationContext(), result,
-                            psForm.getKeyword());
+                    try {
+                        initiateAndPopulateSRListings(getApplicationContext(), result,
+                                psForm.getKeyword());
+                        srProgressLL.setVisibility(View.GONE);
+                        srErrorLL.setVisibility(View.GONE);
+                        srListingsLL.setVisibility(View.VISIBLE);
+                    } catch (JSONDataException e){
+                        Log.v(StrUtil.LOG_TAG+"|Error",e.getMessage());
+                        srProgressLL.setVisibility(View.GONE);
+                        srErrorLL.setVisibility(View.VISIBLE);
+                        srListingsLL.setVisibility(View.GONE);
+                    }
 
-                    srProgressLL.setVisibility(View.GONE);
-                    srListingsLL.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onError(String result) throws Exception {
                     Log.v(StrUtil.LOG_TAG + "|EbayFindError", result.toString());
+                    srProgressLL.setVisibility(View.GONE);
+                    srErrorLL.setVisibility(View.VISIBLE);
+                    srListingsLL.setVisibility(View.GONE);
                 }
             }, getApplicationContext(), psForm.buildQueryParamsMap());
 
@@ -107,7 +120,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         }
     }
 
-    private void initiateAndPopulateSRListings(Context ctx, JSONObject result, String keyword) {
+    private void initiateAndPopulateSRListings(Context ctx, JSONObject result, String keyword) throws JSONDataException {
 
         TextView srResultKeyword = findViewById(R.id.srResultKeyword);
         TextView srResultCount = findViewById(R.id.srResultCount);
@@ -129,6 +142,10 @@ public class SearchResultsActivity extends AppCompatActivity {
             populateSRListings(SRUtil.getIterableResult(result));
         } catch (JSONDataException e){
             Log.v(StrUtil.LOG_TAG+"|Error",e.getMessage());
+            srProgressLL.setVisibility(View.GONE);
+            srErrorLL.setVisibility(View.VISIBLE);
+            srListingsLL.setVisibility(View.GONE);
+            throw new JSONDataException("Ebay Find Call | initiateAndPopulateSRListings failed");
         }
     }
 
@@ -160,9 +177,18 @@ public class SearchResultsActivity extends AppCompatActivity {
 
             } catch (JSONDataException e) {
                 Log.v(StrUtil.LOG_TAG+"|Error",e.getMessage());
+                srProgressLL.setVisibility(View.GONE);
+                srErrorLL.setVisibility(View.VISIBLE);
+                srListingsLL.setVisibility(View.GONE);
             }
 
             srList.add(srDetails);
+        }
+
+        if(srCount == 0){
+            srProgressLL.setVisibility(View.GONE);
+            srErrorLL.setVisibility(View.VISIBLE);
+            srListingsLL.setVisibility(View.GONE);
         }
 
         searchResultsAdapter.notifyDataSetChanged();

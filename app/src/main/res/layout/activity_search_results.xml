@@ -50,6 +50,21 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/srErrorLL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="No Records"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/srListingsLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
