@@ -21,6 +21,7 @@ import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import com.sarveshparab.ebayproductsearch.utility.WishListUtil;
 
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -75,6 +76,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         holder.srConditionTV.setText(srDetails.getCondition());
         holder.srPriceTV.setText(srDetails.getPrice());
 
+        syncAndShowWishlistItems(holder, srDetails);
+
         if(srDetails.getInWishList()){
             holder.srWishListToggleIV.setTag(StrUtil.IN_WISHLIST_TAG);
             holder.srWishListToggleIV.setImageResource(R.drawable.cart_remove);
@@ -120,6 +123,20 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
                 ctx.startActivity(itemDetailsActivity);
             }
         });
+    }
+
+    private void syncAndShowWishlistItems(SRViewHolder holder, SRDetails srDetails) {
+        Map<String, ?> wishPrefAllAgain = wishPref.getAll();
+
+        if(wishPrefAllAgain.containsKey(StrUtil.ITEM_KEY_PREFIX + srDetails.getItemId())){
+            srDetails.setInWishList(true);
+            holder.srWishListToggleIV.setTag(StrUtil.IN_WISHLIST_TAG);
+            holder.srWishListToggleIV.setImageResource(R.drawable.cart_remove_white);
+        } else {
+            srDetails.setInWishList(false);
+            holder.srWishListToggleIV.setTag(StrUtil.NOT_IN_WISHLIST_TAG);
+            holder.srWishListToggleIV.setImageResource(R.drawable.cart_plus_white);
+        }
     }
 
     @Override
