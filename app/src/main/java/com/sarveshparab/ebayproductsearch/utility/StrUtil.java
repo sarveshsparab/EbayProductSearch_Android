@@ -45,6 +45,8 @@ public class StrUtil {
 
 
     public static final String DEFAULT_NA_VALUE = "N/A";
+    public static final String WISHLIST_PREF = "wishListPref";
+    public static final String ITEM_KEY_PREFIX = "EPS_WL_ITEM";
 
 
     public static String formatQueryParams(Map<String,String> params) {
