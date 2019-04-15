@@ -14,6 +14,7 @@ public class ValUtil {
     public static final int TITLE_LENGTH_LIMIT = 39;
     public static final int HOR_SCROLL_VIEW_IMG_MARGIN_START = 5;
     public static final int HOR_SCROLL_VIEW_IMG_MARGIN_END = 5;
+    public static final long SPLASH_TIMEOUT = 1500;
 
     public static int ITEM_DETAIL_OFF_SCREEN_PAGE_LIMIT = 3;
 

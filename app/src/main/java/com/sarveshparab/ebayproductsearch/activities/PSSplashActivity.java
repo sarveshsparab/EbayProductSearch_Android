@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.sarveshparab.ebayproductsearch.LandingActivity;
+import com.sarveshparab.ebayproductsearch.utility.ValUtil;
 
 public class PSSplashActivity extends AppCompatActivity {
 
@@ -12,7 +13,7 @@ public class PSSplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(ValUtil.SPLASH_TIMEOUT);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
