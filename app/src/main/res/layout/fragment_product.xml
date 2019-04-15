@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#e4e4e4"
     tools:context=".fragments.ProductFragment">
 
     <LinearLayout
@@ -67,6 +68,7 @@
                 android:layout_height="300dp"
                 android:minHeight="300dp"
                 android:visibility="visible"
+                android:background="#fff"
                 android:scrollbars="none">
 
                 <LinearLayout
