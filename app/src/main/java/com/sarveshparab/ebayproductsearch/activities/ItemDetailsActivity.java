@@ -165,9 +165,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-
-        Log.v("EPS","back pressed");
-
         super.onBackPressed();
     }
 
