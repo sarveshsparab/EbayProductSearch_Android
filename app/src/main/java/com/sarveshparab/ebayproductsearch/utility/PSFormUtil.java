@@ -141,13 +141,6 @@ public class PSFormUtil {
                     psNearbySearchEnabledRL.setVisibility(View.VISIBLE);
                 } else {
                     psNearbySearchEnabledRL.setVisibility(View.GONE);
-                    EditText psCustLocET = view.findViewById(R.id.psCustLocET);
-                    psCustLocET.setEnabled(false);
-                    psCustLocET.getText().clear();
-                    RadioButton psCurrLocRB = view.findViewById(R.id.psCurrLocRB);
-                    psCurrLocRB.setChecked(true);
-                    RadioButton psCustLocRB = view.findViewById(R.id.psCustLocRB);
-                    psCustLocRB.setChecked(false);
                 }
             }
         };
