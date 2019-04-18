@@ -139,8 +139,7 @@ public class ShippingFragment extends Fragment {
             shipfPopularityRowTR.setVisibility(View.VISIBLE);
         }
 
-        if(!StrUtil.checkValid(srDetails.getSellerDetails().getFeedbackStar())
-                && "None".equals(srDetails.getSellerDetails().getFeedbackStar())){
+        if(!StrUtil.checkValid(srDetails.getSellerDetails().getFeedbackStar())){
             shipfFeedbackStarRowTR.setVisibility(View.GONE);
         } else {
             setFeedbackStar(shipfFeedbackStarValueIV, srDetails.getSellerDetails().getFeedbackStar());
@@ -258,6 +257,9 @@ public class ShippingFragment extends Fragment {
                 break;
             case "Yellow":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_yellow_24dp);
+                break;
+            case "None":
+                shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_black_24dp);
                 break;
             case "GreenShooting":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_green_24dp);
