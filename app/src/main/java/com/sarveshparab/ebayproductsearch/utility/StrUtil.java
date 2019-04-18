@@ -3,6 +3,7 @@ package com.sarveshparab.ebayproductsearch.utility;
 import android.util.Log;
 
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class StrUtil {
 
@@ -48,6 +49,9 @@ public class StrUtil {
     public static final String DEFAULT_NA_VALUE = "N/A";
     public static final String WISHLIST_PREF = "wishListPref";
     public static final String ITEM_KEY_PREFIX = "EPS_WL_ITEM";
+
+    public static String ZIP_CODE_REGEX = "^[0-9]{5}(?:-[0-9]{4})?$";
+    public static Pattern ZIP_CODE_PATTERN = Pattern.compile(ZIP_CODE_REGEX);
 
 
     public static String formatQueryParams(Map<String,String> params) {

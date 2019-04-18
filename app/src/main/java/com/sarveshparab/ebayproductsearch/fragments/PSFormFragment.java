@@ -118,8 +118,8 @@ public class PSFormFragment extends Fragment {
         EditText psKeywordET = view.findViewById(R.id.psKeywordET);
         psKeywordET.addTextChangedListener(PSFormUtil.setPSKeywordETWatcher(view));
 
-//        EditText psCustLocET = view.findViewById(R.id.psCustLocET);
-//        psCustLocET.addTextChangedListener(PSFormUtil.setPSCustLocETWatcher(view));
+        EditText psCustLocET = view.findViewById(R.id.psCustLocET);
+        psCustLocET.addTextChangedListener(PSFormUtil.setPSCustLocETWatcher(view));
 
         CheckBox psNearbySearchEnableCB = view.findViewById(R.id.psEnableNearbyCB);
         psNearbySearchEnableCB.setOnCheckedChangeListener(PSFormUtil.setNearbySearchToggler(view));

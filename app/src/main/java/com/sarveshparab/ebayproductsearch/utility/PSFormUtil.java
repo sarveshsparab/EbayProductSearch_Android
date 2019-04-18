@@ -76,6 +76,12 @@ public class PSFormUtil {
                         || psCustLocET.getText().toString().trim().equals("")) {
                     valid = false;
                     TextView psCustLocErrorTV = view.findViewById(R.id.psCustLocErrorTV);
+                    psCustLocErrorTV.setText("Please enter mandatory field");
+                    psCustLocErrorTV.setVisibility(View.VISIBLE);
+                } else if(!StrUtil.ZIP_CODE_PATTERN.matcher(psCustLocET.getText().toString()).matches()){
+                    valid = false;
+                    TextView psCustLocErrorTV = view.findViewById(R.id.psCustLocErrorTV);
+                    psCustLocErrorTV.setText("Invalid ZipCode");
                     psCustLocErrorTV.setVisibility(View.VISIBLE);
                 }
             }
