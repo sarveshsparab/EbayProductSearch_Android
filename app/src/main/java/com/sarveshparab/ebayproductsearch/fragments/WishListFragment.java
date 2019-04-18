@@ -37,6 +37,8 @@ public class WishListFragment extends Fragment {
     private TextView wishfItemCountTV, wishfNetValTV;
     private SharedPreferences wishPref;
 
+    private SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
+
     public WishListFragment() {
         // Required empty public constructor
     }
@@ -82,8 +84,7 @@ public class WishListFragment extends Fragment {
             wishfErrorLL.setVisibility(View.GONE);
         }
 
-        SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener = (prefs, key) -> {
-
+        onSharedPreferenceChangeListener = (prefs, key) -> {
            Map<String, ?> wishPrefAllAgain = wishPref.getAll();
 
             if(wishPrefAllAgain.size() == 0){
@@ -144,4 +145,9 @@ public class WishListFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        wishPref.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
+    }
 }
