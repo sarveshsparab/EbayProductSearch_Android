@@ -95,9 +95,8 @@
                     android:id="@+id/profTitleTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
                     android:textColor="#000"
-                    android:textSize="30sp" />
+                    android:textSize="26sp" />
 
                 <LinearLayout
                     android:id="@+id/profPriceShippingLL"
