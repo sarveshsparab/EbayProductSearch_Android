@@ -3,6 +3,8 @@ package com.sarveshparab.ebayproductsearch.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.activities.ItemDetailsActivity;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
@@ -110,7 +116,21 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             }
         });
 
-        Glide.with(ctx).load(srDetails.getImageURL()).into(holder.srImageIV);
+        Glide.with(ctx)
+                .load(srDetails.getImageURL())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        Log.v(StrUtil.LOG_TAG + "|GlideImageLoadFailed", "Potentially Image not found[404] : " + model.toString());
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                }).error(R.drawable.image_broken_icon)
+                .into(holder.srImageIV);
 
         holder.srListingsCLLL.setOnClickListener(new View.OnClickListener() {
             @Override

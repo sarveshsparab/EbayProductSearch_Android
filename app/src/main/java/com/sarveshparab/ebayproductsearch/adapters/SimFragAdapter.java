@@ -2,7 +2,9 @@ package com.sarveshparab.ebayproductsearch.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.pojos.SimilarItem;
 import com.sarveshparab.ebayproductsearch.utility.StrUtil;
@@ -63,7 +69,22 @@ public class SimFragAdapter extends RecyclerView.Adapter<SimFragAdapter.SimFragV
         holder.simfPriceTV.setText(simItem.getPrice());
         holder.simfDaysLeftTV.setText(simItem.getDaysLeft());
 
-        Glide.with(ctx).load(simItem.getImageURL()).into(holder.simfImageIV);
+        Glide.with(ctx)
+                .load(simItem.getImageURL())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        Log.v(StrUtil.LOG_TAG + "|GlideImageLoadFailed", "Potentially Image not found[404] : " + model.toString());
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                })
+                .error(R.drawable.image_broken_icon)
+                .into(holder.simfImageIV);
 
         holder.simCardLL.setOnClickListener(new View.OnClickListener() {
             @Override
