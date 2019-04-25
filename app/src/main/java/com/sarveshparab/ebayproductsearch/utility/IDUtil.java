@@ -24,6 +24,11 @@ import java.net.URLEncoder;
 public class IDUtil {
 
     public static String buildFBShareLink(String title, String url, String price){
+
+        if(url == null || url.equals(StrUtil.DEFAULT_NA_VALUE)){
+            url = "https://www.ebay.com/";
+        }
+
         StringBuilder fb = new StringBuilder();
 
         try {
