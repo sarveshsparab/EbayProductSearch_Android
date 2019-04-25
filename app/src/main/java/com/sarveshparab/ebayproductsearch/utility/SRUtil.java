@@ -263,7 +263,7 @@ public class SRUtil {
                         if(srItem.getJSONArray("shippingInfo").getJSONObject(0).has("handlingTime")) {
                             if(srItem.getJSONArray("shippingInfo").getJSONObject(0).getJSONArray("handlingTime").get(0) != null) {
                                 retVal = srItem.getJSONArray("shippingInfo").getJSONObject(0).getJSONArray("handlingTime").get(0).toString();
-                                retVal += retVal.equals("1") ? " Day" : " Days";
+                                retVal += retVal.equals("1") || retVal.equals("0") ? " Day" : " Days";
                             }
                         }
                     }
