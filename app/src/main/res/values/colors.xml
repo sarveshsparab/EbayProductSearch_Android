@@ -10,5 +10,11 @@
     <color name="psButtonText">#fff</color>
     <color name="psErrorMessage">#d50000</color>
     <color name="lightGreyText">#787878</color>
+    <color name="epsBGColor">#f4f4f4</color>
+    <color name="epsWhite">#fff</color>
+    <color name="epsBlack">#000</color>
+    <color name="epsFragDivider">#d4d4d4</color>
+    <color name="epsFragContentSecondary">#787878</color>
+    <color name="csvGB">#e4e4e4</color>
 
 </resources>

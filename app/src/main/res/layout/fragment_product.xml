@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#e4e4e4"
+    android:background="@color/epsBGColor"
     tools:context=".fragments.ProductFragment">
 
     <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#e4e4e4">
+            android:background="@color/epsBGColor">
 
             <HorizontalScrollView
                 android:id="@+id/profHSV"
@@ -68,7 +68,7 @@
                 android:layout_height="300dp"
                 android:minHeight="300dp"
                 android:visibility="visible"
-                android:background="#fff"
+                android:background="@color/epsWhite"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="3"
                     android:textColor="#000"
-                    android:textSize="30dp" />
+                    android:textSize="30sp" />
 
                 <LinearLayout
                     android:id="@+id/profPriceShippingLL"
@@ -119,8 +119,8 @@
                         android:id="@+id/profShippingTitleTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#787878"
-                        android:textSize="17dp" />
+                        android:textColor="@color/epsFragContentSecondary"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
@@ -130,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:layout_marginStart="30dp"
-                android:background="#d4d4d4"/>
+                android:background="@color/epsFragDivider"/>
 
             <LinearLayout
                 android:id="@+id/profHighlightsLL"
@@ -160,8 +160,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:textColor="#000"
+                        android:textSize="20sp"
+                        android:textColor="@color/epsBlack"
                         android:text="Highlights"/>
 
                 </LinearLayout>
@@ -183,16 +183,16 @@
                         <TextView
                             android:layout_width="90dp"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:textColor="#000"
+                            android:textSize="16sp"
+                            android:textColor="@color/epsBlack"
                             android:text="Subtitle"/>
 
                         <TextView
                             android:id="@+id/profHighlightsSubtitleValueTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#787878"
-                            android:textSize="16dp" />
+                            android:textColor="@color/epsFragContentSecondary"
+                            android:textSize="16sp" />
 
                     </TableRow>
 
@@ -208,16 +208,16 @@
                         <TextView
                             android:layout_width="90dp"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:textColor="#000"
+                            android:textSize="16sp"
+                            android:textColor="@color/epsBlack"
                             android:text="Price"/>
 
                         <TextView
                             android:id="@+id/profHighlightsPriceValueTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#787878"
-                            android:textSize="16dp"/>
+                            android:textColor="@color/epsFragContentSecondary"
+                            android:textSize="16sp"/>
 
                     </TableRow>
 
@@ -233,16 +233,16 @@
                         <TextView
                             android:layout_width="90dp"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:textColor="#000"
+                            android:textSize="16sp"
+                            android:textColor="@color/epsBlack"
                             android:text="Brand"/>
 
                         <TextView
                             android:id="@+id/profHighlightsBrandValueTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#787878"
-                            android:textSize="16dp"/>
+                            android:textColor="@color/epsFragContentSecondary"
+                            android:textSize="16sp"/>
 
                     </TableRow>
 
@@ -254,7 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:layout_marginStart="30dp"
-                android:background="#d4d4d4"/>
+                android:background="@color/epsFragDivider"/>
 
             <LinearLayout
                 android:id="@+id/profSpecsLL"
@@ -284,8 +284,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:textColor="#000"
+                        android:textSize="20sp"
+                        android:textColor="@color/epsBlack"
                         android:text="Specifications"/>
 
                 </LinearLayout>
