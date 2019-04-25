@@ -21,6 +21,7 @@ import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import com.sarveshparab.ebayproductsearch.utility.ValUtil;
 import com.sarveshparab.ebayproductsearch.utility.WishListUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +109,7 @@ public class WishListFragment extends Fragment {
         wishRV.setVisibility(View.GONE);
         wishfErrorLL.setVisibility(View.VISIBLE);
         wishfItemCountTV.setText("Wishlist total(0 item):");
-        wishfNetValTV.setText("$0.0");
+        wishfNetValTV.setText("$0.00");
     }
 
     private void syncAndShowWishlistItems(Map<String, ?> wishPrefAll) {
@@ -126,13 +127,14 @@ public class WishListFragment extends Fragment {
 
         wishfItemCountTV.setText("Wishlist total(" + wishPrefList.size() + (wishPrefList.size()>1 ? " items" : " item") + "):");
 
+        DecimalFormat wishListNetFormat = new DecimalFormat("#.##");
         double netVal = 0.0;
         for(int w=0 ; w<wishPrefList.size(); w++){
             if(!StrUtil.DEFAULT_NA_VALUE.equals(wishPrefList.get(w).getPrice())){
                 netVal += Double.parseDouble(wishPrefList.get(w).getPrice().substring(1));
             }
         }
-        wishfNetValTV.setText("$" + netVal);
+        wishfNetValTV.setText("$" + wishListNetFormat.format(netVal));
     }
 
     @Override
