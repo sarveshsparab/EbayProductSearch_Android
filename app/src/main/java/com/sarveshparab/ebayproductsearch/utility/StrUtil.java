@@ -19,7 +19,8 @@ public class StrUtil {
     public static final String JSON_SUCCESS_RESPONSE = "Success";
 
 
-    public static final String NODE_BASE = "http://node-dot-csci-571-webtech-9.appspot.com/";
+    public static final String NODE_BASE = "http://csci571node.appspot.com/";
+//    public static final String NODE_BASE = "http://node-dot-csci-571-webtech-9.appspot.com/";
 //    public static final String NODE_BASE = "http://node-dot-csci-571-webtech-8.appspot.com/";
 //    public static final String NODE_BASE = "http://10.26.30.251:3000/";
 
