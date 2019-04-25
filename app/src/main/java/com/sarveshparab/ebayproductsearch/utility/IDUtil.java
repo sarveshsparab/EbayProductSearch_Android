@@ -42,7 +42,7 @@ public class IDUtil {
             fb.append("%23CSCI571Spring2019Ebay");
             fb.append("&quote='Buy ");
             fb.append(URLEncoder.encode(title, "UTF-8"));
-            fb.append(" at $");
+            fb.append(" at ");
             fb.append(price);
             fb.append(" from the link below'");
         } catch (UnsupportedEncodingException e) {
