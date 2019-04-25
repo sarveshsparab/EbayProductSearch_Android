@@ -15,6 +15,6 @@
     <color name="epsBlack">#000</color>
     <color name="epsFragDivider">#d4d4d4</color>
     <color name="epsFragContentSecondary">#787878</color>
-    <color name="csvGB">#e4e4e4</color>
+    <color name="csvGB">@color/epsBGColor</color>
 
 </resources>
