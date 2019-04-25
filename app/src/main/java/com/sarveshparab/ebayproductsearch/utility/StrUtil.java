@@ -22,7 +22,7 @@ public class StrUtil {
     public static final String NODE_BASE = "http://csci571node.appspot.com/";
 //    public static final String NODE_BASE = "http://node-dot-csci-571-webtech-9.appspot.com/";
 //    public static final String NODE_BASE = "http://node-dot-csci-571-webtech-8.appspot.com/";
-//    public static final String NODE_BASE = "http://10.26.30.251:3000/";
+//    public static final String NODE_BASE = "http://192.168.1.22:3000/";
 
     public static final String NODE_ZIP_AUTO = "zipAuto/";
     public static final String NODE_EBAY_FIND = "ebay/find/";
