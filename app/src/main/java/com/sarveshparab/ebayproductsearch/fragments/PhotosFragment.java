@@ -28,7 +28,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
-public class PhotosFragment extends Fragment {
+public class PhotosFragment extends Fragment implements AnyImageLoadedListener {
 
     private LinearLayout phofProgressLL, phofErrorLL;
     private RecyclerView phofRV;
@@ -54,7 +54,7 @@ public class PhotosFragment extends Fragment {
 
         phofProgressLL.setVisibility(View.VISIBLE);
         phofErrorLL.setVisibility(View.GONE);
-        phofRV.setVisibility(View.GONE);
+        phofRV.setVisibility(View.INVISIBLE);
 
         final SRDetails srDetails = getArguments().getParcelable(StrUtil.SR_ITEM_PARCEL);
         Log.v(StrUtil.LOG_TAG+"|ForwardFragACK",srDetails.getTitle());
@@ -66,19 +66,16 @@ public class PhotosFragment extends Fragment {
                     Log.v(StrUtil.LOG_TAG+"|GooglePhotosSuccess", result.toString());
 
                     List<String> imageURLList = PhoFragUtil.fetchImageURL(result);
-                    phofProgressLL.setVisibility(View.GONE);
 
                     if(imageURLList.size() == 0){
                         phofErrorLL.setVisibility(View.VISIBLE);
-                        phofRV.setVisibility(View.GONE);
+                        phofRV.setVisibility(View.INVISIBLE);
+                        phofProgressLL.setVisibility(View.GONE);
                     } else {
-                        PhoFragAdapter adapter = new PhoFragAdapter(getContext(), imageURLList);
+                        PhoFragAdapter adapter = new PhoFragAdapter(getContext(), imageURLList, PhotosFragment.this::atLeastOneImageLoaded);
                         phofRV.setItemAnimator(new DefaultItemAnimator());
                         phofRV.setLayoutManager(new LinearLayoutManager(getContext()));
                         phofRV.setAdapter(adapter);
-
-                        phofErrorLL.setVisibility(View.GONE);
-                        phofRV.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -87,7 +84,7 @@ public class PhotosFragment extends Fragment {
                     Log.v(StrUtil.LOG_TAG + "|GooglePhotosError", result.toString());
                     phofProgressLL.setVisibility(View.GONE);
                     phofErrorLL.setVisibility(View.VISIBLE);
-                    phofRV.setVisibility(View.GONE);
+                    phofRV.setVisibility(View.INVISIBLE);
                 }
             }, getContext(), new HashMap<String, String>(){{
                     try {
@@ -97,7 +94,7 @@ public class PhotosFragment extends Fragment {
                         Log.v(StrUtil.LOG_TAG + "|GooglePhotosError", "UTF Encoding exception");
                         phofProgressLL.setVisibility(View.GONE);
                         phofErrorLL.setVisibility(View.VISIBLE);
-                        phofRV.setVisibility(View.GONE);
+                        phofRV.setVisibility(View.INVISIBLE);
                     }
                 }});
 
@@ -112,5 +109,19 @@ public class PhotosFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void atLeastOneImageLoaded(int imgCount) {
+        Log.v(StrUtil.LOG_TAG + "|GoogleImgLoadedCount",String.valueOf(imgCount));
+        if(imgCount <= 0){
+            phofProgressLL.setVisibility(View.GONE);
+            phofErrorLL.setVisibility(View.VISIBLE);
+            phofRV.setVisibility(View.INVISIBLE);
+        } else {
+            phofProgressLL.setVisibility(View.GONE);
+            phofErrorLL.setVisibility(View.GONE);
+            phofRV.setVisibility(View.VISIBLE);
+        }
     }
 }
