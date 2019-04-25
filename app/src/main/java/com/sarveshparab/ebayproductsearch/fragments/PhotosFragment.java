@@ -23,6 +23,8 @@ import com.sarveshparab.ebayproductsearch.utility.StrUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -88,8 +90,16 @@ public class PhotosFragment extends Fragment {
                     phofRV.setVisibility(View.GONE);
                 }
             }, getContext(), new HashMap<String, String>(){{
-                put("queryString", srDetails.getTitle());
-            }});
+                    try {
+                        put("queryString", URLEncoder.encode(srDetails.getTitle(), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                        Log.v(StrUtil.LOG_TAG + "|GooglePhotosError", "UTF Encoding exception");
+                        phofProgressLL.setVisibility(View.GONE);
+                        phofErrorLL.setVisibility(View.VISIBLE);
+                        phofRV.setVisibility(View.GONE);
+                    }
+                }});
 
         return view;
     }
