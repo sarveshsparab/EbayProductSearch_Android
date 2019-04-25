@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -115,11 +114,11 @@ public class PSFormFragment extends Fragment {
 
         // ZipCode Auto-complete logic ENDS ********************************************************
 
-        EditText psKeywordET = view.findViewById(R.id.psKeywordET);
-        psKeywordET.addTextChangedListener(PSFormUtil.setPSKeywordETWatcher(view));
-
-        EditText psCustLocET = view.findViewById(R.id.psCustLocET);
-        psCustLocET.addTextChangedListener(PSFormUtil.setPSCustLocETWatcher(view));
+//        EditText psKeywordET = view.findViewById(R.id.psKeywordET);
+//        psKeywordET.addTextChangedListener(PSFormUtil.setPSKeywordETWatcher(view));
+//
+//        EditText psCustLocET = view.findViewById(R.id.psCustLocET);
+//        psCustLocET.addTextChangedListener(PSFormUtil.setPSCustLocETWatcher(view));
 
         CheckBox psNearbySearchEnableCB = view.findViewById(R.id.psEnableNearbyCB);
         psNearbySearchEnableCB.setOnCheckedChangeListener(PSFormUtil.setNearbySearchToggler(view));
