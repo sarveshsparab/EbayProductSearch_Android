@@ -1,6 +1,9 @@
 package com.sarveshparab.ebayproductsearch.utility;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.sarveshparab.ebayproductsearch.R;
 import com.sarveshparab.ebayproductsearch.expections.JSONDataException;
 import com.sarveshparab.ebayproductsearch.pojos.SRDetails;
@@ -230,7 +237,23 @@ public class ProdFragUtil {
                 imgLayoutParams.setMarginStart(ValUtil.getDPVal(ValUtil.HOR_SCROLL_VIEW_IMG_MARGIN_START, ctx));
                 imgLayoutParams.setMarginEnd(ValUtil.getDPVal(ValUtil.HOR_SCROLL_VIEW_IMG_MARGIN_END, ctx));
                 imageView.setLayoutParams(imgLayoutParams);
-                Glide.with(ctx).load(itemImagesList.get(img)).into(imageView);
+                Glide.with(ctx)
+                        .load(itemImagesList.get(img))
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+
+                                Log.v(StrUtil.LOG_TAG + "|GlideImageLoadFailed", "Potentially Image not found[404] : " + model.toString());
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                        .error(R.drawable.image_broken_icon)
+                        .into(imageView);
 
                 profHSVLL.addView(imageView);
             }
