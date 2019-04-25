@@ -76,7 +76,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public void onBindViewHolder(SRViewHolder holder, int position) {
         final SRDetails srDetails = srList.get(position);
 
-        holder.srTitleTV.setText(srDetails.getTitleCutoff());
+        holder.srTitleTV.setText(srDetails.getTitle());
         holder.srZipTV.setText("Zip: " + srDetails.getZipcode());
         holder.srShippingTV.setText(srDetails.getShippingCost());
         holder.srConditionTV.setText(srDetails.getCondition());
