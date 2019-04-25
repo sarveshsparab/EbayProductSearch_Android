@@ -240,43 +240,43 @@ public class ShippingFragment extends Fragment {
 
     private void setFeedbackStar(ImageView shipfFeedbackStarValueIV, String feedbackStar) {
         switch (feedbackStar){
-            case "Blue":
-                shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_blue_24dp);
-                break;
-            case "Green":
+            case "GreenShooting":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_green_24dp);
                 break;
-            case "Purple":
+            case "PurpleShooting":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_purple_24dp);
                 break;
-            case "Red":
+            case "RedShooting":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_red_24dp);
                 break;
-            case "Turquoise":
+            case "TurquoiseShooting":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_turquoise_24dp);
                 break;
-            case "Yellow":
+            case "YellowShooting":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_yellow_24dp);
+                break;
+            case "SilverShooting":
+                shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_silver_24dp);
                 break;
             case "None":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_black_24dp);
                 break;
-            case "GreenShooting":
+            case "Blue":
+                shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_blue_24dp);
+                break;
+            case "Green":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_green_24dp);
                 break;
-            case "PurpleShooting":
+            case "Purple":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_purple_24dp);
                 break;
-            case "RedShooting":
+            case "Red":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_red_24dp);
                 break;
-            case "SilverShooting":
-                shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_silver_24dp);
-                break;
-            case "TurquoiseShooting":
+            case "Turquoise":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_turquoise_24dp);
                 break;
-            case "YellowShooting":
+            case "Yellow":
                 shipfFeedbackStarValueIV.setImageResource(R.drawable.star_circle_outline_yellow_24dp);
                 break;
         }
