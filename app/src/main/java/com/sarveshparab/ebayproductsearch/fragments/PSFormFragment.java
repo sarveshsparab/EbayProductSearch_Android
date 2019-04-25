@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sarveshparab.ebayproductsearch.R;
@@ -134,6 +135,9 @@ public class PSFormFragment extends Fragment {
             }
         });
 
+        TextView psKeywordErrorTV = view.findViewById(R.id.psKeywordErrorTV);
+        TextView psCustLocErrorTV = view.findViewById(R.id.psCustLocErrorTV);
+
         Button psSearchBtn = view.findViewById(R.id.psSearchBtn);
         psSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +154,9 @@ public class PSFormFragment extends Fragment {
 
                     Log.v(StrUtil.LOG_TAG+"|PSForm",psForm.toString());
                     Log.v(StrUtil.LOG_TAG+"|Forward","To SearchResults Activity");
+
+                    psKeywordErrorTV.setVisibility(View.GONE);
+                    psCustLocErrorTV.setVisibility(View.GONE);
 
                     Intent searchResultsActivity = new Intent(getActivity(), SearchResultsActivity.class);
                     searchResultsActivity.putExtra(StrUtil.PSFORM_PARCEL, psForm);
